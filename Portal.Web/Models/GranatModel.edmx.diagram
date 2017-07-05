@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0a05a0f17a2e4cd8b25a464ab7859d80" Name="Diagram1" ZoomLevel="96">
+        <EntityTypeShape EntityType="Model.AspNetRole" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.AspNetUserLogin" Width="1.875" PointX="5.625" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.AspNetUser" Width="1.5" PointX="3" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ModuleQuestion" Width="1.5" PointX="5.25" PointY="7" IsExpanded="true" />
+        <AssociationConnector Association="Model.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.AspNetUserRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Model.Exam" Width="1.5" PointX="8.25" PointY="1.125" />
+        <AssociationConnector Association="Model.FK_Exams_AspNetUsers" />
+        <EntityTypeShape EntityType="Model.ExamQuestion" Width="1.5" PointX="10.5" PointY="4.125" />
+        <AssociationConnector Association="Model.FK_ExamQuestions_Exams" />
+        <AssociationConnector Association="Model.FK_ExamQuestions_ModuleQuestions" />
+        <EntityTypeShape EntityType="Model.Course" Width="1.5" PointX="0.75" PointY="5" />
+        <AssociationConnector Association="Model.FK_Exams_Courses" />
+        <EntityTypeShape EntityType="Model.UserModulesWatched" Width="2.375" PointX="13.75" PointY="6.375" />
+        <EntityTypeShape EntityType="Model.ModuleQuestionCompany" Width="1.5" PointX="8.25" PointY="10" />
+        <EntityTypeShape EntityType="Model.UserCours" Width="1.5" PointX="10.5" PointY="8.25" />
+        <AssociationConnector Association="Model.FK_UserCourses_Courses" />
+        <EntityTypeShape EntityType="Model.Department" Width="1.5" PointX="8.25" PointY="13.75" />
+        <EntityTypeShape EntityType="Model.UserProfile" Width="1.5" PointX="13.5" PointY="10" />
+        <AssociationConnector Association="Model.FK_UserProfiles_AspNetUsers" />
+        <AssociationConnector Association="Model.FK_UserProfiles_Departments" />
+        <AssociationConnector Association="Model.FK_UserCourses_UserProfiles" />
+        <AssociationConnector Association="Model.FK_UserModulesWatched_UserProfiles" />
+        <EntityTypeShape EntityType="Model.Module" Width="1.5" PointX="3" PointY="5.75" />
+        <AssociationConnector Association="Model.FK_Modules_Courses" />
+        <AssociationConnector Association="Model.FK_ModuleQuestionCompany_Modules" />
+        <AssociationConnector Association="Model.FK_ModuleQuestions_Modules" />
+        <AssociationConnector Association="Model.FK_UserModulesWatched_Modules" />
+        <EntityTypeShape EntityType="Model.Company" Width="1.75" PointX="6" PointY="11.625" />
+        <AssociationConnector Association="Model.FK_Departments_Companies" />
+        <AssociationConnector Association="Model.FK_ModuleQuestionCompany_Companies" />
+        <AssociationConnector Association="Model.FK_UserProfiles_Companies" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

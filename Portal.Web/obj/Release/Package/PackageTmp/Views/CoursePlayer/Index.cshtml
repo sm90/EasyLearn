@@ -1,0 +1,118 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_CourseLayout.cshtml";
+}
+
+@section styles {
+    <style>
+        .background-container {
+            background-image: url(/Content/img/hms_pattern_bg.png);
+            background-color: #cecece;
+            background-position: center center;
+            background-repeat: repeat;
+            -moz-background-size: 30%;
+            -o-background-size: 30%;
+            -webkit-background-size: 30%;
+            background-size: 30%;
+            /*height: 600px;*/
+        }
+
+        .row.background-adjusted {
+            margin-bottom: -20px;
+        }
+
+        .container.background-adjusted {
+            margin-top: 20px;
+        }
+    </style>
+}
+
+<script>
+    var requestedItem = parseInt(@ViewBag.requestedItem);
+    var movieList = @Html.Raw(Json.Encode(@ViewBag.courses));
+    var lastSeen = parseInt(@ViewBag.lastSeen);
+    var requestedModule = parseInt(@ViewBag.requestedModule);
+
+   
+</script>
+
+@section scripts {
+    <script src="~/Scripts/jquery.vibrate.js"></script>
+    <script src="~/Scripts/granat-course.js?d=@DateTime.Now"></script>
+    <!--[if lte IE 9]>
+         <script src="/Scripts/granat-course.js"></script>
+    <![endif]-->
+
+
+}
+
+
+
+
+<div class="background-container">
+    <div class="container" style="width: 80%; min-width: 300px; max-width: 1100px;">
+        <div class="course-player-nav">
+            <div class="row">
+                <div class="col-sm-11 course-progress-bar hidden-xs">
+                </div>
+                <div class="col-xs-12 visible-xs">
+                    <div class="course-player-controls">
+                        <a href="#" style="color: black">
+                            <i id="player-prev" class="fa fa-chevron-circle-left"></i>
+                        </a>
+                        <span class="course-progress-text visible-xs">5 / 20</span>
+                        <a href="#" style="color: black">
+                            <i id="player-next" class="fa fa-chevron-circle-right"></i>
+                        </a>
+</div>
+                </div>
+                <div class="col-sm-1 hidden-xs">
+                    <img id="examIcon" class="exam-icon" src="~/Content/img/examen_icon.png" />
+                </div>
+            </div>
+        </div>
+        <div class="row background-adjusted">
+          
+                <div class="col-xs-12">
+
+                    <div class="embed-container">
+                        <iframe id="vimeoplayer" src="" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                    </div>
+
+                </div>
+           
+        </div>
+    </div>
+</div>
+<div class="container background-adjusted">
+    <div class="row">
+        <div class="col-xs-12" style="text-align: center; margin-top: 15px;">
+            <button id="questionTrigger" class="btn btn-transparent disabled" data-toggle="modal" data-target="#questionModal">
+                <img src="~/Content/img/treningsoppg_btn.png" />
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    @*<div class="modal fade" id="questionModal" tabindex="-1" role="dialog" aria-labelledby="questionModalLabel" aria-hidden="true">*@
+    <div class="modal fade" id="questionModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="alternatives">
+                    </div>
+                    <div class="response">
+                        <i class="fa"></i>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    @*<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>*@
+                    <button id="nextQuestion" type="button" class="btn btn-black disabled"><i class="fa fa-fast-forward"></i></button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</div>

@@ -1,0 +1,508 @@
+﻿@using Portal.Web.Models
+@model List<Portal.Web.Models.AdminUsersModel>
+
+@{
+    ViewBag.Title = "Overview";
+    ViewBag.Subtitle = "Kompetanse";
+    ViewBag.Icon = "en-pie";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+<link href="~/Content/kendo/2013.1.514/kendo.common.min.css" rel="stylesheet" />
+<link href="~/Content/kendo/2013.1.514/kendo.bootstrap.min.css" rel="stylesheet" />
+<script src="~/Scripts/kendo/2013.1.514/jquery.min.js"></script>
+<script src="~/Scripts/kendo/2013.1.514/kendo.web.min.js"></script>
+<script src="/Scripts/kendo/2013.1.514/kendo.aspnetmvc.min.js"></script>
+<script src="~/Scripts/kendo/2013.1.514/cultures/kendo.culture.nb-NO.min.js"></script>
+<script src="/Scripts/kendo/2013.1.514/kendo.nb-NO.js"></script>
+<script language="javascript" type="text/javascript" src="http://www.flotcharts.org/flot/jquery.flot.js"></script>
+<script type="text/javascript" language="javascript" src="/Scripts/flot/jquery.flot.pie.min.js"></script>
+<script src="~/Scripts/flot/jquery.flot.axislabels.js"></script>
+<script src="~/Scripts/flot/jquery.flot.threshold.min.js"></script>
+<script type="text/javascript" src="~/Scripts/flot/jquery.flot.time.js"></script>
+<script src="~/Scripts/granat-exam.js"></script>
+<!--[if lte IE 8]>
+    <script language="javascript" type="text/javascript" src="http://www.flotcharts.org/excanvas.min.js"></script>
+<![endif]-->
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //change event
+        $("#srch-term").keyup(function () {
+
+            var val = $('#srch-term').val();
+
+            $("#grid").data("kendoGrid").dataSource.filter({
+                logic: "or",
+                filters: [
+                    {
+                        field: "Name",
+                        operator: "contains",
+                        value: val
+                    }
+                  
+                ]
+            });
+
+
+        });
+    });
+
+</script>
+
+<style type="text/css">
+    body {
+        font-family: Verdana, Arial, sans-serif;
+        font-size: 12px;
+    }
+
+    #placeholder {
+        width: 375px;
+        height: 225px;
+    }
+
+    .legend table, .legend > div {
+        height: 82px !important;
+        opacity: 1 !important;
+        left: 270px;
+        top: 10px;
+        width: 116px !important;
+    }
+
+    .legend table {
+        padding: 5px;
+    }
+</style>
+
+<script>
+    kendo.culture("nb-NO");
+</script>
+<script type="text/javascript">
+    var usersCompletedPercent = parseFloat(@(ViewBag.usersCompletedCoursesPercent));
+    var usersNotStartedPercent = parseFloat(@(ViewBag.usersNotStartedCount));
+    var usersNotCompletedPercent = parseFloat(@(ViewBag.usersSartedNotCompletedPercent));
+
+    var data = [
+        { label: "Fullført", data: usersCompletedPercent, color: "#81cf5d" },
+        { label: "Ikke påbegynt", data: usersNotStartedPercent, color: "#c75052" },
+        { label: "Påbegynt", data: usersNotCompletedPercent, color: "#f0bf56" }
+    ];
+
+    $(document).ready(function () {
+        $.plot($("#placeholder"), data, {
+            series: {
+                pie: {
+                    show: true
+                }
+            },
+            legend: {
+                labelBoxBorderColor: "none"
+            }
+        });
+    });
+</script>
+
+
+
+
+
+<script type="text/javascript">
+
+    var barGraphData;
+
+    $(function () {
+
+        var data, data1, options, chart, ticks, OrderNum;
+        data1 = [];
+        ticks = [];
+
+        $.ajax({
+            url: '/Ajax/_ajax_GetCourseModuleAverageScore',
+            data: { id: 1, d: new Date().getTime() },
+            type: 'GET',
+            async: false,
+            dataType: 'json',
+            success: function (statData) {
+                barGraphData = statData;
+                for (var i = 0; i < statData.length; ++i) {
+                    data1[i] = [i, statData[i].PercentCorrect];
+                    //  ticks[i] = [i, "Modul " + statData[i].OrderNum];
+                }
+
+            },
+            error: function (req, status, error) {
+                alert('Klarte ikke å hente data fra server');
+            }
+
+        });
+
+        ticks[0] = [0, "Rollefordeling"];
+        ticks[1] = [1, "Introduksjon HMS"];
+        ticks[2] = [2, "Verneutstyr"];
+        ticks[3] = [3, "RUH Rapport"];
+        ticks[4] = [4, "Sikker jobb analyse"];
+        ticks[5] = [5, "Arbeid i høyden"];
+        ticks[6] = [6, "Opplæring teknisk utstyr"];
+        ticks[7] = [7, "Varme arbeider"];
+        ticks[8] = [8, "Provisorisk utstyr"];
+        ticks[9] = [9, "Helse og miljøfarlige stoffer"];
+        ticks[10] = [10, "Hyggiene og renhold"];
+        ticks[11] = [11, "Avfallshåndtering"];
+        ticks[12] = [12, "Ergonomi"];
+
+        data = [
+             {
+                 data: data1, color: "#5482FF", label: "Statistikk", bars: { show: true, barWidth: 0.5, align: "center" }, threshold: {
+                     below: 20,
+                     color: "rgb(200, 20, 30)"
+                 }
+             }
+        ];
+
+        options = {
+            legend: {
+                position: "nw",
+                show: false
+            },
+            grid: {
+                clickable: true,
+                hoverable: true,
+                borderWidth: 0
+            },
+            yaxis: {
+                min: 0,
+                max: 100,
+                tickFormatter: function (v, axis) {
+                    return v + "%";
+                },
+                axisLabel: "Gjennomsnitt score per modul",
+                axisLabelUseCanvas: true,
+                axisLabelFontSizePixels: 12,
+                axisLabelFontFamily: 'Verdana, Arial',
+                axisLabelPadding: 3,
+                minTickSize: 10
+            },
+
+            xaxis: {
+                ticks: ticks,
+                tickLength: 0,
+                minTickSize: 10
+            }
+
+
+
+            //xaxis: {
+            //    ticks: [[1, "Failed"], [2, "Passed"]]
+            //}
+        };
+
+        $(document).ready(function () {
+            chart1 = $.plot($("#placeholderAverageModule"), data, options);
+        });
+
+        $("#placeholderAverageModule").bind("plotclick", function (event, pos, item) {
+
+            if (item) {
+                //alert(barGraphData[item.dataIndex].ModuleId);
+                window.location.replace("/CoursePlayer?id=" + barGraphData[item.dataIndex].ModuleId);
+            }
+        });
+
+    })
+
+</script>
+
+<br />
+<br />
+<div class="container">
+    <table border="0">
+        <tr>
+            <td>
+                <div id="placeholder"></div>
+            </td>
+            <td>
+
+                <div id="flot-placeholder" style="width:750px;height:250px;margin:0 auto"></div>
+
+            </td>
+        </tr>
+    </table>
+    <p></p>
+    <div id="placeholderAverageModule" style="width:100%;height:250px">
+    </div>
+  
+    <br /><br />
+    <script type="text/javascript">
+        function cityFilter(element) {
+            element.kendoDropDownList({
+                dataSource: {
+                    transport: {
+                        read: "@Url.Action("FilterMenuCustomization_Cities")"
+                    }
+                },
+                optionLabel: "--Velg verdi--"
+            });
+        }
+
+      
+    </script>
+    
+    <style>
+        .k-state-selected {
+            background-color: #a1abb4;
+        }
+
+     
+    </style>
+
+    @(Html.Kendo().Grid<StatUsersModel>()
+          .Name("grid")
+          .Columns(columns =>
+          {
+              columns.Bound(p => p.Icon).Filterable(false).Title("Bestått").ClientTemplate(
+                  "# if (Icon == 'Ja') { #" +
+                  "<img src='/Content/Icons_Granat/accept.png' alt='Bestått' />" +
+                  "# } else { #" +
+                  "<img src='/Content/Icons_Granat/cross.png' alt='Ikke bestått' />" +
+                  "# } #"
+                  ).Width(60).Sortable(true);
+
+              columns.Bound(p => p.Name).Filterable(false).Title("Navn").Sortable(true).ClientTemplate(
+                  "<a class='noDecoration' href='/Admin/User" + "/#= AspNetUserId #'" + ">#= Name #</a>"
+                  );
+              columns.Bound(p => p.Department).Filterable(filterable => filterable.UI("cityFilter")).Sortable(true).Title("Avdeling");
+              columns.Bound(p => p.NumTries).Filterable(false).Sortable(true).Title("Antall forsøk").Width(100);
+              columns.Bound(p => p.PassDateDisplay).Filterable(false).Sortable(true).Title("Bestått dato").Width(150);
+              columns.Bound(p => p.LastLoginDateDisplay).Filterable(false).Sortable(true).Title("Sist innlogget").Width(150);
+              columns.Bound(p => p.PercentText).Filterable(false).Sortable(true).Title("Resultat").Width(100);
+              columns.Bound(p => p.Name).Filterable(false).Title("Re-send invite").Sortable(true).ClientTemplate(
+                  "<a class='reInvite' onclick=\"invite(\'#= Username #\')\" data-name=\"\" ><i style=\"text-align: center; width: 100%;\" class=\"fa fa-reply\"></i></a>").Width(110);
+          })
+
+          .Pageable()
+    .ToolBar(toolbar =>
+    {
+        toolbar.Template(@<text>
+            <div class="toolbar">
+              
+                <div class="input-group" style="float: right;display: inline">
+                    <input type="text" class="form-control" placeholder="Brukersøk" name="srch-term" id="srch-term"  style="display: inline">
+                   
+                </div>
+              
+            </div>
+        </text>);
+    })
+          .Sortable()
+          .Scrollable()
+                  .Filterable(filterable => filterable
+                .Extra(false)
+                .Operators(operators => operators
+                    .ForString(str => str.Clear()
+                        //.StartsWith("Starts with")
+                       .IsEqualTo("Er lik")
+                       // .IsNotEqualTo("Is not equal to")
+                    ))
+                )   
+          .HtmlAttributes(new { style = "height:450px;" })
+          .DataSource(dataSource => dataSource
+              .Ajax().PageSize(20)
+              .Read(read => read.Action("_ajax_StatUsers", "Admin"))
+          )
+          )
+
+</div>
+
+
+<script type="text/javascript" src="/js/lib/jquery-1.8.3.min.js"></script>
+<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="/js/flot/excanvas.min.js"></script><![endif]-->
+<script type="text/javascript" src="/js/flot/jquery.flot.min.js"></script>
+<script type="text/javascript" src="/js/flot/jquery.flot.time.js"></script>
+<script type="text/javascript" src="/js/flot/jshashtable-2.1.js"></script>
+<script type="text/javascript" src="/js/flot/jquery.numberformatter-1.2.3.min.js"></script>
+<script type="text/javascript" src="/js/flot/jquery.flot.symbol.js"></script>
+<script type="text/javascript" src="/js/flot/jquery.flot.axislabels.js"></script>
+<script>
+    function invite(name) {
+
+        $.ajax({
+            url: '/admin/InviteUser/',
+            type: "POST",
+            data: { 'name': name },
+            success: function () {
+                window.location = window.location;
+            }
+        });
+    }
+    var data1;
+    data1 = [];
+   
+    $.ajax({
+        url: '/Ajax/_ajax_GetCourseUsersPassed',
+        data: { id: 1, d: new Date().getTime() },
+        type: 'GET',
+        async: false,
+        dataType: 'json',
+        success: function (statData) {
+            for (var i = 0; i < statData.length; ++i) {
+                data1[i] = [gd(statData[i].Year, statData[i].Month, statData[i].Day), statData[i].Value];
+            }
+    
+        },
+        error: function (req, status, error) {
+            alert('Klarte ikke å hente data fra server');
+        }
+
+    });
+
+
+    var dataset = [
+        {
+            label: "Sell out",
+            data: data1,
+            color: "#0062E3",
+            points: { fillColor: "#0062E3", show: true },
+            lines: { show: true }
+        }
+    ];
+
+    var dayOfWeek = ["Søn", "Man", "Tir", "Ons", "Tor", "Fre", "Lør"];
+
+
+    var options = {
+        series: {
+            shadowSize: 5,
+            fill: true
+
+        },
+        xaxes: [
+            {
+                tickLength: 0,
+                mode: "time",
+                tickFormatter: function(val, axis) {
+                    return "";
+                    // return dayOfWeek[new Date(val).getDay()];
+                },
+                color: "black",
+                position: "top",
+                axisLabel: "Antall som har bestått eksamen",
+                axisLabelUseCanvas: true,
+                axisLabelFontSizePixels: 12,
+                axisLabelFontFamily: 'Verdana, Arial',
+                axisLabelPadding: 5
+            },
+            {
+                mode: "time",
+                timeformat: "%m/%d",
+                tickSize: [3, "day"],
+                color: "black",
+                axisLabel: "Date",
+                axisLabelUseCanvas: true,
+                axisLabelFontSizePixels: 12,
+                axisLabelFontFamily: 'Verdana, Arial',
+                axisLabelPadding: 10
+            }
+        ],
+        yaxis: {
+            show: false,
+            tickLength: 0,
+            color: "black",
+            tickDecimals: 0,
+            axisLabel: "",
+            axisLabelUseCanvas: true,
+            axisLabelFontSizePixels: 12,
+            axisLabelFontFamily: 'Verdana, Arial',
+            axisLabelPadding: 5
+        },
+        legend: {
+            show: false,
+            noColumns: 0,
+            labelFormatter: function (label, series) {
+                return "<font color=\"white\">" + label + "</font>";
+            },
+            backgroundColor: "#000",
+            backgroundOpacity: 0.9,
+            labelBoxBorderColor: "#000000",
+            position: "nw"
+        },
+        grid: {
+            hoverable: true,
+            borderWidth: 0,
+            mouseActiveRadius: 50,
+            axisMargin: 20
+        },
+        lines: {
+            fill: true,
+            color: "#339ccc"
+        }
+    };
+
+
+    $(document).ready(function () {
+        $.plot($("#flot-placeholder"), dataset, options);
+        $("#flot-placeholder").UseTooltip();
+  
+    });
+
+
+
+
+    function gd(year, month, day) {
+        return new Date(year, month - 1, day).getTime();
+    }
+
+    var previousPoint = null, previousLabel = null;
+    var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+    $.fn.UseTooltip = function () {
+        $(this).bind("plothover", function (event, pos, item) {
+            if (item) {
+                if ((previousLabel != item.series.label) || (previousPoint != item.dataIndex)) {
+                    previousPoint = item.dataIndex;
+                    previousLabel = item.series.label;
+                    $("#tooltip").remove();
+
+                    var x = item.datapoint[0];
+                    var y = item.datapoint[1];
+                    var date = new Date(x);
+                    var color = item.series.color;
+
+                    showTooltip(item.pageX, item.pageY, color,
+                        "<strong>Antall bestått: </strong> " + y + "<br>Dato: " + date.getDate() + "/" + (date.getMonth() + 1));
+
+
+                    //showTooltip(item.pageX, item.pageY, color,
+                    //    "<strong>" + item.series.label + "</strong><br>" +
+                    //    (date.getMonth() + 1) + "/" + date.getDate() +
+                    //    " : <strong>" + y + "</strong> (USD/oz)");
+                }
+            } else {
+                $("#tooltip").remove();
+                previousPoint = null;
+            }
+        });
+    };
+
+    function showTooltip(x, y, color, contents) {
+        $('<div id="tooltip">' + contents + '</div>').css({
+            position: 'absolute',
+            display: 'none',
+            top: y - 40,
+            left: x - 120,
+            border: '2px solid ' + color,
+            padding: '3px',
+            'font-size': '9px',
+            'border-radius': '5px',
+            'background-color': '#fff',
+            'font-family': 'Verdana, Arial, Helvetica, Tahoma, sans-serif',
+            opacity: 0.9
+        }).appendTo("body").fadeIn(200);
+    }
+
+</script>

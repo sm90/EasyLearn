@@ -1,0 +1,39 @@
+﻿
+.loginH {
+    height: 27px;
+}
+
+.longInput {
+    height: 17px !important;
+    margin-top: 4px;
+    margin-bottom: 8px;
+}
+
+#widgetu6{
+    z-index: 2;
+    width: 0.01px;
+    height: 265px;
+    position: absolute;
+    top: 365px;
+    left: 292px;        
+}
+
+#widgetu69{
+    width: 435px;
+	/*margin-top: 365px;*/
+}
+#widgetu69 .fld-grp {
+    height: 40px;
+}
+#u70-17 {
+    /*height: 50px*/
+}
+#container {
+    margin: 0 !important;
+}
+.login_footer a, .login_footer a:hover {
+    text-decoration: none;
+}
+.login_footer a:hover img.grayscale {
+    filter: none !important;
+}

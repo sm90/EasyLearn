@@ -1,0 +1,87 @@
+﻿@model IEnumerable<Portal.Web.Models.UserProfile>
+
+@{
+    ViewBag.Title = "EditUser";
+    Layout = "~/Views/Shared/_CourseLayout.cshtml";
+}
+
+<h2>EditUser</h2>
+
+<style type="text/css">
+    body {
+        font-family: Verdana, Arial, sans-serif;
+        font-size: 12px;
+    }
+
+    #placeholder {
+        width: 375px;
+        height: 225px;
+    }
+
+    .legend table, .legend > div {
+        height: 82px !important;
+        opacity: 1 !important;
+        left: 270px;
+        top: 10px;
+        width: 116px !important;
+    }
+
+    .legend table {
+        padding: 5px;
+    }
+</style>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AspNetUserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CompanyId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Firstname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lastname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AspNetUserId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CompanyId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Firstname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lastname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Phone)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.UserProfileId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.UserProfileId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.UserProfileId })
+        </td>
+    </tr>
+}
+
+</table>

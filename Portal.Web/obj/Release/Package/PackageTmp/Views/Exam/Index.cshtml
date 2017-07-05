@@ -1,0 +1,66 @@
+﻿@using Portal.Web.Models
+@model ExamQuestion
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_CourseLayout.cshtml";
+}
+@section styles {
+    <style>
+        .background-container {
+            background-image: url(/Content/img/hms_pattern_bg.png);
+            background-color: #cecece;
+            background-position: center center;
+            background-repeat: repeat;
+            -moz-background-size: 30%;
+            -o-background-size: 30%;
+            -webkit-background-size: 30%;
+            background-size: 30%;
+        }
+
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+            display: none !important;
+        }
+    </style>
+}
+
+<div class="background-container">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div id="exam-block">
+                    <div class="row">
+                        <div class="col-xs-6 col-xs-offset-3">
+                            <div class="exam-header">EKSAMEN - @ViewBag.course.Name</div>
+                        </div>
+                    </div>
+                    <div class="exam-content">
+                        <img class="exam-icon" src="~/Content/img/examen_icon.png" />
+                        <div class="exam-requirements">
+                            (Minimum @ViewBag.course.RequiredPassScore% korrekte svar for å bestå)
+                        </div>
+                        <div class="row exam-alternatives">
+                            <div class="col-xs-6 col-sm-5 col-sm-offset-1">
+                                <button onclick="submitAnswer(0)" id="alternative_0" class="btn-transparent btn-alternative left"><img class="thumbnail img-responsive img-alternative" src="@Model.ModuleQuestion.ImageUrl1" id="choise1" /></button>
+                            </div>
+                            <div class="col-xs-6 col-sm-5">
+                                <button onclick="submitAnswer(1)" id="alternative_1" class="btn-transparent btn-alternative right"><img class="thumbnail img-responsive img-alternative" src="@Model.ModuleQuestion.ImageUrl2" id="choise2" /></button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="exam-progress-bar">
+                                    <div class="exam-progress-item " ng-repeat="question in questions" ng-class="{complete: question.completed}" style="width: {{$parent.questionItemWidth}}%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+<script src="~/Scripts/granat-exam.js?@DateTime.Now"></script>
+}

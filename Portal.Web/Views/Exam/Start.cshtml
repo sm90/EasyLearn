@@ -1,0 +1,45 @@
+﻿@using Portal.Web.Models
+@{
+    ViewBag.Title = "Start";
+    Layout = "~/Views/Shared/_CourseLayout.cshtml";
+}
+
+@section styles {
+    <style>
+        .background-container {
+            background-image: url(/Content/img/hms_pattern_bg.png);
+            background-color: #cecece;
+            background-position: center center;
+            background-repeat: repeat;
+            -moz-background-size: 30%;
+            -o-background-size: 30%;
+            -webkit-background-size: 30%;
+            background-size: 30%;
+        }
+
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+            display: none !important;
+        }
+    </style>
+}
+
+
+    <div class="container container-full">
+        <div class="row">
+            <div class="col-xs-12">
+                <div id="exam-block">
+                    <div class="row">
+                        <div class="col-xs-6 col-xs-offset-3">
+
+                            <div class="exam-header">EKSAMEN - @ViewBag.course.Name</div>
+
+                        </div>
+                    </div>
+                    <a href="/Exam">
+                        <img src="~/Content/start_exam.jpg" />
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </div>

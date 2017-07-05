@@ -1,0 +1,54 @@
+.html
+{
+	background-color: #E9E9E9;
+}
+
+#page
+{
+	z-index: 1;
+	width: 600px;
+	min-height: 1013px;
+	background-image: none;
+	border-style: none;
+	border-color: #351F1F;
+	background-color: #FFFFFF;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#page_position_content
+{
+	margin-bottom: 19px;
+}
+
+#u76
+{
+	z-index: 48;
+	width: 601px;
+}
+
+#u76_img
+{
+	padding-right: 1px;
+}
+
+#u75-46
+{
+	z-index: 2;
+	width: 560px;
+	min-height: 631px;
+	margin-left: 20px;
+	margin-top: 13px;
+}
+
+body
+{
+	padding-top: 18px;
+	padding-bottom: 54px;
+}
+
+#page .verticalspacer
+{
+	clear: both;
+}
+

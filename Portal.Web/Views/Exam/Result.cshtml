@@ -1,0 +1,246 @@
+﻿@model Portal.Web.Models.Exam
+
+@{
+    ViewBag.Title = "Result";
+    Layout = "~/Views/Shared/_CourseLayout.cshtml";
+}
+
+@section styles {
+    <style>
+        .background-container {
+            background-image: url(/Content/img/hms_pattern_bg.png);
+            background-color: #cecece;
+            background-position: center center;
+            background-repeat: repeat;
+            -moz-background-size: 30%;
+            -o-background-size: 30%;
+            -webkit-background-size: 30%;
+            background-size: 30%;
+        }
+
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+            display: none !important;
+        }
+
+        .resultIcon {
+            color: black;
+            padding: 12px;
+                 margin-top: 25px;
+                 font-size: 5em;
+     
+        }
+
+        .resultbox {
+           
+            background-color: #000;
+            color: #fff;
+            border-radius: 10px 10px 10px 10px;
+            padding: 12px;
+            text-align: center;
+            font-weight: bold;
+            margin-left: 0px;
+            margin-right: 10px;
+            width: 170px;
+            margin-top: 50px;
+            margin-bottom: 30px;
+            text-decoration: none;
+            
+        }
+    </style>
+}
+
+@if (Model.ResultScore >= Model.PassScore)
+{
+    <div class="background-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div id="exam-block">
+                        <div class="row">
+                            <div class="col-xs-6 col-xs-offset-3">
+
+                                <div class="exam-header">EKSAMEN - @Model.Cours.Name</div>
+                                <br />
+                                <center>
+                                    <i class="fa fa-smile-o" style="color: #0f0; font-size: 8em; "></i>
+
+                                    <br /><p>
+                                        <h1><strong>@Model.ResultScore%</strong></h1>
+
+                                    </p>
+                                    <p>
+                                        <table>
+                                            <tr>
+                                                <td><a href="/Pdf"><i class="fa fa-download resultIcon"></i></a></td>
+                                                <td><a href="/Pdf"><div class="resultbox">Last ned ditt kursbevis</div></a></td>
+                                            </tr>
+                                        </table>
+                                        
+                                       
+
+
+                                    </p>
+
+                                </center>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="background-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div id="exam-block" ng-cloak class="ng-cloak">
+                        <div class="row">
+                            <div class="col-xs-6 col-xs-offset-3">
+
+                                <div class="exam-header">EKSAMEN - @Model.Cours.Name</div>
+                                <br />
+                                <center>
+                                    
+
+                                    <i class="fa fa-frown-o" style="color: #f00; font-size: 8em;"></i>
+                                    <br /><p>
+                                              <h1><strong>@Model.ResultScore%</strong></h1>
+
+                                          </p>
+                                    <p>
+                                        
+                                        <table>
+                                            <tr>
+                                                <td><a href="/CoursePlayer/?id=1"><i class="fa fa-book resultIcon"></i></a></td>
+                                                <td><a href="/CoursePlayer/?id=1"><div class="resultbox"> studer mer</div></a></td>
+                                                <td width="50px;">&nbsp;</td>
+                                            <td><a href="/Exam"><i class="fa fa-repeat resultIcon"></i></a></td>
+                                                <td><a href="/Exam" ><div class="resultbox">Ta eksamen på nytt</div></a></td>
+                                            </tr>
+                                        </table>
+                                    </p>
+
+                                </center>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@*<style>
+        html, body, .container {
+            height: 100%;
+        }
+
+        .container {
+            display: table;
+            vertical-align: middle;
+        }
+
+        .vertical-center-row {
+            display: table-cell;
+            vertical-align: middle;
+        }
+
+        .alert {
+            width: 210%;
+        }
+    </style>
+
+    @if (Model.ResultScore >= Model.PassScore)
+    {
+        <div class="background-container">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div id="exam-block" ng-cloak class="ng-cloak">
+                            <div class="row">
+                                <div class="col-xs-6 col-xs-offset-3">
+
+                                    <div class="exam-header">EKSAMEN - @ViewBag.course.Name</div>
+
+                                </div>
+                            </div>
+                            <a href="/Exam">
+                                <img src="~/Content/img/TheEnd.jpg" />
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="background-container">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div id="exam-block" ng-cloak class="ng-cloak">
+                            <div class="row">
+                                <div class="col-xs-6 col-xs-offset-3">
+
+                                    <div class="exam-header">EKSAMEN - @ViewBag.course.Name</div>
+
+                                </div>
+                            </div>
+                            <a href="/Exam">
+                                <img src="~/Content/img/TheEnd.jpg" />
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+
+    <div class="container">
+        <p></p><p></p><br />
+        <div class="col-lg-2"></div>
+        <div class="col-lg-4">
+
+            @if (Model.ResultScore >= Model.PassScore)
+            {
+
+
+                <iframe src="//player.vimeo.com/video/90870467?title=0&amp;byline=0&amp;portrait=0&amp;autoplay=1" width="750" height="420" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+        <div class="alert alert-success">
+            <strong>Gratulerer!</strong> Du har bestått eksamen med et resultat på @Model.ResultScore%.
+            <p><br/></p>
+            <form action="/Pdf">
+                <input type="submit" value="Last ned kursbevis">
+            </form>
+        </div>
+            }
+            else
+            {
+                <iframe src="//player.vimeo.com/video/90870768?title=0&amp;byline=0&amp;portrait=0&amp;autoplay=1" width="750" height="422" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+
+                <div class="alert alert-success">
+                    <strong>Beklager!</strong> Eksamen er ikke bestått. Du oppnådde et resultat på @Model.ResultScore prosent. For å bestå eksamen trenger du @Model.PassScore%.
+                    <p>
+                        <br/>
+                        <form action="/Exam">
+                            <input type="submit" value="Prøv igjen">
+                        </form>
+                    </p>
+        </div>
+
+
+            }
+        </div>
+        </div>*@

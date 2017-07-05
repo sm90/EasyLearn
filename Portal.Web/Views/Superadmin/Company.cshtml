@@ -1,0 +1,477 @@
+﻿@using System.Diagnostics.Eventing.Reader
+@using System.Web.UI.WebControls
+@using Portal.Web.Models
+@model Portal.Web.Models.EditCompanyModel
+
+@{
+    ViewBag.Title = "Company";
+    ViewBag.SubTitle = "Company";
+    ViewBag.Icon = "en-house";
+    Layout = "~/Views/Shared/_CourseLayout.cshtml";
+}
+
+
+<link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+<link href="~/Content/kendo/2013.1.514/kendo.common.min.css" rel="stylesheet" />
+<link href="~/Content/kendo/2013.1.514/kendo.bootstrap.min.css" rel="stylesheet" />
+<link href="/Scripts/spectrum/spectrum.css" rel="stylesheet" />
+<script src="~/Scripts/kendo/2013.1.514/jquery.min.js"></script>
+<script src="~/Scripts/kendo/2013.1.514/kendo.web.min.js"></script>
+<script src="/Scripts/kendo/2013.1.514/kendo.aspnetmvc.min.js"></script>
+<script src="~/Scripts/kendo/2013.1.514/cultures/kendo.culture.nb-NO.min.js"></script>
+<script src="/Scripts/kendo/2013.1.514/kendo.nb-NO.js"></script>
+<script src="/Scripts/spectrum/spectrum.js"></script>
+
+<style>
+    .center_div {
+        margin: 0 auto;
+        /*     width: 20%; */ /* value of your choice which suits your alignment */
+    }
+</style>
+
+<style type="text/css">
+    body {
+        font-family: Verdana, Arial, sans-serif;
+        font-size: 12px;
+    }
+
+    #placeholder {
+        width: 375px;
+        height: 225px;
+    }
+
+    .legend table, .legend > div {
+        height: 82px !important;
+        opacity: 1 !important;
+        left: 270px;
+        top: 10px;
+        width: 116px !important;
+    }
+
+    .legend table {
+        padding: 5px;
+    }
+
+    .selected-value {
+        float: left;
+        width: 16px;
+        margin: 0 4px;
+    }
+
+    .k-state-focus {
+        background-color: #ea7235;
+    }
+
+    .k-state-selected.k-state-focused {
+        background-color: #ea7235;
+    }
+
+
+    .k-item.k-state-hover,
+    .k-item.k-state-hover:hover {
+        color: black;
+        background: #ddd;
+    }
+
+    /*.k-state-hover {
+        background: #ff0000;
+    }*/
+    /*
+    .k-state-selected .k-state-focused .k-h {
+        background-color: #6F9300;
+
+    }*/
+
+
+
+    /*.k-dropdown .k-state-default {
+
+        background-color: red;
+        background-image: none;
+    }*/
+</style>
+
+<br />
+<div class="container center_div">
+
+    <form class="form-horizontal" id="companyForm" method="post" enctype="multipart/form-data"  action="/Superadmin/Company">
+        <div class="container">
+            <style type="text/css">
+                .bs-example {
+                    margin: 20px;
+                }
+            </style>
+            <style>
+                .center_div {
+                    margin: 0 auto;
+                    /*     width: 20%; */
+                    /* value of your choice which suits your alignment */
+                }
+            </style>
+
+            <br>
+            <br>
+
+            <style>
+                .divAddImg {
+                    overflow: hidden;
+                    height: 181px;
+                    display: inline-block;
+                }
+
+                .inputAddImg {
+                    opacity: 0;
+                    filter: alpha(opacity:0);
+                    font-size: 181px;
+                    padding: 0;
+                    margin: 0;
+                    border: none;
+                    /*margin-left:-450px;*/
+                    cursor: default;
+                }
+
+                .divAddLogo {
+                    width: 152px;
+                    background: url(/Content/img/company/addLogoImg.png) no-repeat;
+                    background-repeat: no-repeat;
+                    background-size: 100% 100%;
+                }
+
+                .inputAddLogo {
+                }
+
+                .divAddCover {
+                    width: 520px;
+                    background-repeat: no-repeat;
+                    background-size: 100% 100%;
+                    background: url(/Content/img/company/addCoverImg.png) no-repeat;
+                }
+
+                .inputAddCover {
+                }
+            </style>
+
+            <!--<link href="css/colorpicker.css" rel="stylesheet" type="text/css">-->
+            <!--<link href="css/layout.css" rel="stylesheet" type="text/css">-->
+            <!--<script type="text/javascript" src="js/colorpicker.js"></script>-->
+            <!--<script type="text/javascript" src="js/eye.js"></script>-->
+            <!--<script type="text/javascript" src="js/jquery.js"></script>-->
+            <!--<script type="text/javascript" src="js/layout.js"></script>-->
+            <!--<script type="text/javascript" src="js/utils.js"></script>-->
+
+            <div class="center-block" style="width: 697px; position: relative; right: 30px;">
+                <div style="width:152px; margin-right: 10px; float: left">
+                    @if (!string.IsNullOrEmpty(@Model.logoUrl))
+                    {
+                        <div class="divAddImg divAddLogo" style="background-image: url(@Model.logoUrl); background-size: 100% 100%;" id="logo"><input type="file" name="logo" data-preview="#logo" accept="image/*" class="inputAddImg inputAddLogo"></div>
+                    }
+                    else
+                    {
+                        <div class="divAddImg divAddLogo" id="logo"><input type="file" name="logo" data-preview="#logo" accept="image/*" class="inputAddImg inputAddLogo"></div>
+
+                    }
+                    <br>
+                    <br>
+                    <br>
+                    <div>
+                        <div style="position:relative;">
+                            <input type="text" class="colorPicker" id="headerColor" name="headerColor" value="@Model.headerColor" style="width: 45px; height: 30px; vertical-align: middle; background-color: #f3f4f6; border-color: #dfe0da; padding: 0px 15px 0px 2px; cursor: pointer" />
+
+                            <span style="font-family: Clible, sans-serif; font-size: 14px; font-weight: bold; vertical-align: middle; padding-left: 7px">Header</span>
+                        </div>
+                        <br>
+                        <!--<div style="position:relative;">
+                            <input type="text" class="colorPicker" id="backgroundColor" name="backgroundColor" value="@Model.backgroundColor" style="width: 45px; height: 30px; vertical-align: middle; background-color: #f3f4f6; border-color: #dfe0da; padding: 0px 15px 0px 2px; cursor: pointer" />
+                            <span style="font-family: Clible, sans-serif; font-size: 14px; font-weight: bold; vertical-align: middle; padding-left: 7px">Background</span>
+                        </div>
+                        <br>-->
+                        <div>
+                            <div><span style="font-family: Clible, sans-serif; font-size: 14px; font-weight: bold; vertical-align: middle; padding-bottom: 5px;">Menu</span></div>
+                            <div style="float:left; width: 50%;">
+                                <span style="font-family: Clible, sans-serif; font-size: 14px; vertical-align: middle;">Passive</span>
+                                <br />
+                                <input type="text" class="colorPicker" id="menuPasiveColor" name="menuPassiveColor" value="@Model.menuPassiveColor" style="width: 45px; height: 30px; vertical-align: middle; background-color: #f3f4f6; border-color: #dfe0da; padding: 0px 15px 0px 2px; cursor: pointer" />
+                            </div>
+                            <div style="">
+                                <span style="font-family: Clible, sans-serif; font-size: 14px; vertical-align: middle;">Active</span>
+                                <br />
+                                <input type="text" class="colorPicker" id="menuActiveColor" name="menuActiveColor" value="@Model.menuActiveColor" style="width: 45px; height: 30px; vertical-align: middle; background-color: #f3f4f6; border-color: #dfe0da; padding: 0px 15px 0px 2px; cursor: pointer" />
+                            </div>
+                        </div>
+                        <br>
+                        <div>
+                            <div><span style="font-family: Clible, sans-serif; font-size: 14px; font-weight: bold; vertical-align: middle; padding-bottom: 5px;">Buttons &amp; Bars</span></div>
+                            <div style="float:left; width: 50%;">
+                                <span style="font-family: Clible, sans-serif; font-size: 14px; vertical-align: middle;">Passive</span>
+                                <br />
+                                <input type="text" class="colorPicker" id="buttonsBackgroundColor" value="@Model.buttonsBackgroundColor" name="buttonsBackgroundColor" style="width: 45px; height: 30px; vertical-align: middle; background-color: #f3f4f6; border-color: #dfe0da; padding: 0px 15px 0px 2px; cursor: pointer" />
+
+                            </div>
+                            <div style="">
+                                <span style="font-family: Clible, sans-serif; font-size: 14px; vertical-align: middle;">Active</span>
+                                <br />
+                                <input type="text" class="colorPicker" id="buttonsActiveColor" name="buttonsActiveColor" value="@Model.buttonsActiveColor" style=" width 45px; height 30px; vertical-align middle; background-color #f3f4f6; border-color #dfe0da; padding 0px 15px 0px 2px; cursor pointer" />
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+
+                    <div>
+                        <div>
+                            <input name="companyType" @Model.isChekedType("Company") id="Company" value="Company" type="radio" style="vertical-align: top">
+                            <span style="font-family: Clible, sans-serif; font-size: 14px; font-weight: bold; vertical-align: top; padding-left: 7px">Company</span>
+                        </div>
+                        <br>
+                        <div>
+                            <input name="companyType" @Model.isChekedType("Author") id="Author" value="Author" type="radio" style="vertical-align: top">
+                            <span style="font-family: Clible, sans-serif; font-size: 14px; font-weight: bold; vertical-align: top; padding-left: 7px">Author</span>
+                        </div>
+                        <br>
+                        <div>
+                            <input name="companyType" @Model.isChekedType("Producer") id="Producer" value="Producer" type="radio" style="vertical-align: top">
+                            <span style="font-family: Clible, sans-serif; font-size: 14px; font-weight: bold; vertical-align: top; padding-left: 7px">Producer</span>
+                        </div>
+                        <script type="text/javascript">
+                            $(document).ready(function () {
+                                if ($('input[name=companyType]:checked', '#companyForm').val() == undefined) {
+                                    $('#Company').attr('checked', true);
+                                }
+                            });
+                        </script>
+
+                    </div>
+
+                </div>
+                <div style="width:520px; margin-left: 10px; float: left">
+                    @if (!string.IsNullOrEmpty(@Model.loginLogoUrl))
+                        {
+                            <div class="divAddImg divAddCover" style="background-image: url(@Model.loginLogoUrl); background-size: 100% 100%;" id="loginLogo"><input type="file" name="loginLogo" accept="image/*" data-preview="#loginLogo" class="inputAddImg inputAddCover"></div>
+                        }
+                        else
+                        {
+                            <div class="divAddImg divAddCover" id="loginLogo"><input type="file" name="loginLogo" accept="image/*" data-preview="#loginLogo" class="inputAddImg inputAddCover"></div>
+                        }
+                 
+                    <br>
+                    <br>
+                    <br>
+
+                    <div class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" style="text-align: left; font-family: Calibre, sans-serif; font-size: 14px; font-weight: normal">Company Name<span class="mandatory">*</span></label>
+                            <div class="col-sm-9" style="padding-left: 0">
+                                <input type="text" name="companyName" class="form-control" value="@Model.companyName"  style="max-width: 500px;">
+                                @Html.ValidationMessage("companyName")
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" style="text-align: left; font-family: Calibre, sans-serif; font-size: 14px; font-weight: normal">Org. nr.<span class="mandatory">*</span></label>
+                            <div class="col-sm-9" style="padding-left: 0">
+                                <input type="text" class="form-control" value="@Model.orgNummer" name="orgNummer"  style="max-width: 500px;">
+                                @Html.ValidationMessage("orgNummer")
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" style="text-align: left; font-family: Calibre, sans-serif; font-size: 14px; font-weight: normal">Billing adress</label>
+                            <div class="col-sm-9" style="padding-left: 0">
+                                <input type="text" class="form-control" value="@Model.billinAddress" name="billinAddress"  style="max-width: 500px;">
+                                @Html.ValidationMessage("billinAddress")
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" style="text-align: left; font-family: Calibre, sans-serif; font-size: 14px; font-weight: normal">Zip code<span class="mandatory">*</span></label>
+                            <div class="col-sm-2" style="padding-left: 0">
+                                <input type="text" name="zipCode" value="@Model.zipCode" class="form-control" style="max-width: 500px;">
+                                @Html.ValidationMessage("zipCode")
+                            </div>
+                            <label class="col-sm-1 control-label" style="text-align: left; font-family: Calibre, sans-serif; font-size: 14px; font-weight: normal">City</label>
+                            <div class="col-sm-6" style="padding-left: 0">
+                                <input type="text" name="city" value="@Model.city" class="form-control"  style="max-width: 500px;">
+                                @Html.ValidationMessage("city")
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" style="text-align: left; font-family: Calibre, sans-serif; font-size: 14px; font-weight: normal">Country</label>
+                            <div class="col-sm-9" style="padding-left: 0">
+                                <input type="text" name="contry" value="@Model.contry" class="form-control" style="max-width: 500px;">
+                                @Html.ValidationMessage("contry")
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" style="text-align: left; font-family: Calibre, sans-serif; font-size: 14px; font-weight: normal">Company Phone</label>
+                            <div class="col-sm-9" style="padding-left: 0">
+                                <input type="number" class="form-control" value="@Model.phone" name="phone" style="max-width: 500px;">
+                                @Html.ValidationMessage("сompanyPhone")
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" style="text-align: left; font-family: Calibre, sans-serif; font-size: 14px; font-weight: normal">www.<span class="mandatory">*</span></label>
+                            <div class="col-sm-9" style="padding-left: 0">
+                                <input type="text" name="domain" value="@Model.domain" class="form-control"  style="max-width: 500px;">
+                                @Html.ValidationMessage("domain")
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" style="text-align: left; font-family: Calibre, sans-serif; font-size: 14px; font-weight: normal">Startmovie</label>
+                            <div class="col-sm-9" style="padding-left: 0">
+                                <input type="text" name="startVidio" value="@Model.startVidio" class="form-control"  style="max-width: 500px;">
+                                @Html.ValidationMessage("startVidio")
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" style="text-align: left; font-family: Calibre, sans-serif; font-size: 14px; font-weight: normal">Description</label>
+                            <div class="col-sm-9" style="padding-left: 0">
+                                <textarea name="description" class="form-control" placeholder="" style="max-width: 500px; resize: none; height: 100px">@Model.description </textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" style="text-align: left; font-family: Calibre, sans-serif; font-size: 14px; font-weight: normal">Main contact<span class="mandatory">*</span></label>
+                            <div class="col-sm-4" style="padding-left: 0">
+                                <input type="text" name="contactName" value="@Model.contactName" class="form-control" style="max-width: 500px;">
+                                @Html.ValidationMessage("contactName")
+                            </div>
+                            <div class="col-sm-5" style="padding-left: 0">
+                                <input type="text" name="contactSurname" value="@Model.contactSurname" class="form-control" style="max-width: 500px;">  
+                                @Html.ValidationMessage("contactSurname")                          
+                            </div>
+                        </div>
+                        <div class="form-group" style="position: relative">
+                            <label class="col-sm-3 control-label" style="text-align: left; font-family: Calibre, sans-serif; font-size: 14px; font-weight: normal">E-Mail<span class="mandatory">*</span></label>
+                            <div class="col-sm-9" style="padding-left: 0">
+                                <input type="email" class="form-control" value="@Model.email" name="email"  style="max-width: 500px;"><div class="sendMail" style="position: relative; top: -23px; left: 101%;"></div>
+                                @Html.ValidationMessage("email")
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" style="text-align: left; font-family: Calibre, sans-serif; font-size: 14px; font-weight: normal">Phone</label>
+                            <div class="col-sm-9" style="padding-left: 0">
+                                <input type="text" name="contactPhone" value="@Model.contactPhone" class="form-control" style="max-width: 500px;">
+                                @Html.ValidationMessage("contactPhone")
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="submit" class="btn" style="background-color: #f3f4f6; float: right; padding: 2px 8px; margin-right: 15px; color: #798595; font-weight: bold; font-size: 16px; font-family: Calibre, sans-serif" value="SAVE" />
+                            @if (Model.CompanyId > 0)                   
+                            {
+                                <input type="button" class="btn" id="btnDelete" style="background-color: #f3f4f6; float: right; padding: 2px 8px; margin-right: 15px; color: #798595; font-weight: bold; font-size: 16px; font-family: Calibre, sans-serif" value="DELETE" />
+                            }
+                            <input type="hidden" id="sendMailFlag" name="isSendMail" value="false" />
+                            <input type="hidden" id="CompanyId" name="CompanyId" value="@Model.CompanyId" />
+       
+                    </div>
+                        <div class="form-group">
+             
+                            <label class="col-sm-3 control-label" style="text-align: left; font-family: Calibre, sans-serif; font-size: 14px; font-weight: normal"></label>
+                            <div class="col-sm-9" style="padding-left: 0">
+                                <span class="mandatory">*</span> - mandatory fields
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+
+
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#btnDelete').click(function(){
+                    if (confirm('Are you sure you want to delete the company and all of her entity?')) {
+                        $('#btnDelete').unbind();
+                        $.ajax({
+                            url: '/Superadmin/deleteCompany',
+                            method: 'post',
+                            data : {id: $('#CompanyId').val()},
+                            success: function (result) {
+                                window.location = '/Superadmin/Companys'
+                            }
+                        });
+                    }
+                  
+                });
+
+                $('.form-control').each(function () {
+                    if (this.value == '0') this.value = '';
+                });
+                $('.colorPicker').spectrum({
+                    allowEmpty: true,
+                   
+                    showInput: true,
+                    containerClassName: "full-spectrum",
+                    showInitial: true,
+                    showPalette: true,
+                    showSelectionPalette: true,
+                    showAlpha: true,
+                    maxPaletteSize: 10,
+                    preferredFormat: "rgb",
+                    localStorageKey: "spectrum.demo",
+                    move: function (color) {
+                        updateBorders(color);
+                    },
+                    show: function () {
+                    },
+                    beforeShow: function () {
+                    },
+                    hide: function (color) {
+                        updateBorders(color);
+                    },
+                    palette: [["rgb(0, 0, 0)", "rgb(67, 67, 67)", "rgb(102, 102, 102)", 
+                        "rgb(204, 204, 204)", "rgb(217, 217, 217)", "rgb(255, 255, 255)"],
+                        ["rgb(152, 0, 0)", "rgb(255, 0, 0)", "rgb(255, 153, 0)", "rgb(255, 255, 0)", "rgb(0, 255, 0)",
+                        "rgb(0, 255, 255)", "rgb(74, 134, 232)", "rgb(0, 0, 255)", "rgb(153, 0, 255)", "rgb(255, 0, 255)"],
+                        ["rgb(230, 184, 175)", "rgb(244, 204, 204)", "rgb(252, 229, 205)", "rgb(255, 242, 204)", "rgb(217, 234, 211)",
+                        "rgb(208, 224, 227)", "rgb(201, 218, 248)", "rgb(207, 226, 243)", "rgb(217, 210, 233)", "rgb(234, 209, 220)",
+                        "rgb(221, 126, 107)", "rgb(234, 153, 153)", "rgb(249, 203, 156)", "rgb(255, 229, 153)", "rgb(182, 215, 168)",
+                        "rgb(162, 196, 201)", "rgb(164, 194, 244)", "rgb(159, 197, 232)", "rgb(180, 167, 214)", "rgb(213, 166, 189)",
+                        "rgb(204, 65, 37)", "rgb(224, 102, 102)", "rgb(246, 178, 107)", "rgb(255, 217, 102)", "rgb(147, 196, 125)",
+                        "rgb(118, 165, 175)", "rgb(109, 158, 235)", "rgb(111, 168, 220)", "rgb(142, 124, 195)", "rgb(194, 123, 160)",
+                        "rgb(166, 28, 0)", "rgb(204, 0, 0)", "rgb(230, 145, 56)", "rgb(241, 194, 50)", "rgb(106, 168, 79)",
+                        "rgb(69, 129, 142)", "rgb(60, 120, 216)", "rgb(61, 133, 198)", "rgb(103, 78, 167)", "rgb(166, 77, 121)",
+                        "rgb(91, 15, 0)", "rgb(102, 0, 0)", "rgb(120, 63, 4)", "rgb(127, 96, 0)", "rgb(39, 78, 19)",
+                        "rgb(12, 52, 61)", "rgb(28, 69, 135)", "rgb(7, 55, 99)", "rgb(32, 18, 77)", "rgb(76, 17, 48)"]]});
+                $('.sendMail').click(function (){
+                    $('#sendMailFlag').val('true');
+                    $('#companyForm').submit();
+                });
+                var headerColor = $('#headerColor');
+                var headerBlock = $('.navbar');
+
+                
+
+                var wrapperColor = $('#backgroundColor');
+                var wrapperBlock = $('#wrapper');
+
+                
+                headerColor.change(function () {
+                    headerBlock.css('background-color', headerColor.val());
+                });
+                wrapperColor.change(function () {
+                    wrapperBlock.css('background-color', wrapperColor.val());
+                });
+     
+                function imgLoader(target) {    
+                    target.change(function () {
+                        var imgContainer = $(this.getAttribute("data-preview"));
+                        var loginImgContainer = $('#loginLogoPreview');
+                        var logo = $('.logo');
+                        if (this.files && this.files[0]) {
+                            var reader = new FileReader();
+                            reader.onload = function(e) {
+                                imgContainer.css({ 'background-image': 'url(' + e.target.result + ')', 'background-size': '100% 100%' });
+                            //    loginImgContainer.attr('src', e.target.result);
+                                logo.attr('src', e.target.result);
+
+                            }
+
+                            reader.readAsDataURL(this.files[0]);
+                        }
+                    });
+                }
+                imgLoader($('.inputAddImg'));
+            });
+        </script>

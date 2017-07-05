@@ -1,0 +1,125 @@
+﻿@model Portal.Web.Models.LoginViewModel
+
+@{
+    Layout = null;
+    ViewBag.Title = "Log in";
+}
+<link href="/Content/Site.css" rel="stylesheet">
+<title>@ViewBag.Title</title>
+<style>
+        body, #container, #page {
+            @*background-color: @Session["backgroundColor"].ToString() !important;*@
+        }
+        body {
+            display: table;
+            height: 100%;
+            padding: 0 !important;
+            width: 100%;
+        }
+        #u109_img {
+            margin: 0 auto;
+            height: 80px;
+            width: 180px;
+        }
+</style>
+
+    <div id="container">
+        <link rel="stylesheet" type="text/css" href="/Content/Login/site_global.css?3983832653" />
+        <link rel="stylesheet" type="text/css" href="/Content/Login/index.css?3950748324" id="pagesheet" />
+
+        <!--[if lte IE 9]>
+          <link rel="stylesheet" type="text/css" href="/Content/normalize.css" />
+        <![endif]-->
+
+        <div class="clearfix" id="page" style="margin-top: 15%">
+            <!-- group -->
+
+            <div class="clip_frame grpelem" id="u109">
+                <!-- image -->
+                <img class="block" id="u109_img" src="@Session["logoUrl"].ToString()" alt="logo" />
+            </div>
+            <div class="clearfix grpelem" style="display: none" id="u114-6">
+                <!-- content -->
+                <p id="u114-2">Jobz tar Helse, MiljГё og Sikkerhet pГҐ alvor.</p>
+                <p id="u114-4">&#45; Hver ansatt logger seg inn her for ГҐ gjennomfГёre sitt HMS&#45;Kurs</p>
+            </div>
+            <div class="verticalspacer"></div>
+            <div>
+                <form class="form-grp clearfix grpelem" id="widgetu69" method="post" enctype="multipart/form-data" action="/Account/Login">
+                    <!-- none box -->
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationMessage("LogError")
+                    <div class="fld-grp clearfix grpelem" id="widgetu91" data-required="true">
+                        <!-- none box -->
+                        <label class="fld-label actAsDiv clearfix grpelem" id="u93-4" for="widgetu91_input">
+                            <!-- content -->
+                            <span class="actAsPara">Brukernavn:</span>
+                        </label>
+
+                        <span class="fld-input NoWrap actAsDiv clearfix grpelem loginH" id="u95-3"><!-- content --><input class="wrapped-input longInput" style="width: 100%; max-width: 100%;" type="text" spellcheck="false" id="widgetu91_input" name="username" tabindex="1" /></span>
+                    </div>
+                    <div class="fld-grp clearfix grpelem" id="widgetu86" data-required="true" data-type="email">
+                        <!-- none box -->
+                        <label class="fld-label actAsDiv clearfix grpelem" id="u87-4" for="widgetu86_input">
+                            <!-- content -->
+                            <span class="actAsPara">Passord:</span>
+                        </label>
+                        <span class="fld-input NoWrap actAsDiv clearfix grpelem loginH" id="u90-3"><!-- content --><input class="wrapped-input longInput" style="width: 100%; max-width: 100%;" type="password" spellcheck="false" id="widgetu86_input" name="password" tabindex="2" /></span>
+                    </div>
+                    <input class="submit-btn NoWrap grpelem" id="u70-17" type="submit" value="" tabindex="3" /><!-- state-based BG images -->
+                    <div class="clearfix grpelem" id="u97-4">
+                        <!-- content -->
+                        <p>Submitting Form...</p>
+                    </div>
+                    <div class="clearfix grpelem" id="u96-4">
+                        <!-- content -->
+                        <p>The server encountered an error.</p>
+                    </div>
+                    <div class="clearfix grpelem" id="u71-4">
+                        <!-- content -->
+                        <p>Form received.</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="preload_images">
+            <img class="preload" src="/Content/Login/u70-17-r.png" alt="" />
+            <img class="preload" src="/Content/Login/u70-17-m.png" alt="" />
+            <img class="preload" src="/Content/Login/u70-17-fs.png" alt="" />
+        </div>
+        <div id="futerStub"></div>
+        <div style="clear: both"></div>
+
+    </div>
+
+    <div class="login_footer container">
+        <footer style="/*position: fixed; top: 100%; margin-top: -30px; left: 50%; margin-left: -35px;*/">
+            <div class="row row-nomargin">
+                <div class="logo-row col-md-offset-3 col-md-6">
+                    <a href="//www.easylearn.no">
+                        <img class="granat-logo grayscale" src="~/Content/img/easylearn_logo_footer.png" />
+                    </a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-44230319-2', 'granatweb.azurewebsites.net');
+        ga('send', 'pageview');
+
+    </script>
+    <script src="/Scripts/jquery-2.0.3.min.js"></script>
+    <script src="/Scripts/jquery.cookie.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.cookie('isHelp', 'true');
+        })
+    </script>

@@ -1,0 +1,147 @@
+﻿@using System.Diagnostics.Eventing.Reader
+@using System.Web.UI.WebControls
+@using Portal.Web.Models
+@using Portal.Web.Models.DataObject
+@model List<Portal.Web.Models.DataObject.ComanyJsonDto>
+
+
+@{
+    ViewBag.Title = "Companys";
+    ViewBag.SubTitle = "Company List";
+    ViewBag.Icon = "en-house";
+    Layout = "~/Views/Shared/_CourseLayout.cshtml";
+}
+
+
+<link href="~/Content/kendo/2013.1.514/kendo.common.min.css" rel="stylesheet" />
+<link href="~/Content/kendo/2013.1.514/kendo.bootstrap.min.css" rel="stylesheet" />
+<script src="~/Scripts/kendo/2013.1.514/jquery.min.js"></script>
+<script src="~/Scripts/kendo/2013.1.514/kendo.web.min.js"></script>
+<script src="/Scripts/kendo/2013.1.514/kendo.aspnetmvc.min.js"></script>
+<script src="~/Scripts/kendo/2013.1.514/cultures/kendo.culture.nb-NO.min.js"></script>
+<script src="/Scripts/kendo/2013.1.514/kendo.nb-NO.js"></script>
+
+<style>
+    .center_div {
+        margin: 0 auto;
+        /*     width: 20%; */ /* value of your choice which suits your alignment */
+    }
+</style>
+
+<style type="text/css">
+    body {
+        font-family: Verdana, Arial, sans-serif;
+        font-size: 12px;
+    }
+
+    #placeholder {
+        width: 375px;
+        height: 225px;
+    }
+
+    .legend table, .legend > div {
+        height: 82px !important;
+        opacity: 1 !important;
+        left: 270px;
+        top: 10px;
+        width: 116px !important;
+    }
+
+    .legend table {
+        padding: 5px;
+    }
+
+    .selected-value {
+        float: left;
+        width: 16px;
+        margin: 0 4px;
+    }
+
+    .k-state-focus {
+        background-color: #ea7235;
+    }
+
+    .k-state-selected.k-state-focused {
+        background-color: #ea7235;
+    }
+
+
+    .k-item.k-state-hover,
+    .k-item.k-state-hover:hover {
+        color: black;
+        background: #ddd;
+    }
+
+    /*.k-state-hover {
+        background: #ff0000;
+    }*/
+    /*
+    .k-state-selected .k-state-focused .k-h {
+        background-color: #6F9300;
+
+    }*/
+
+
+
+    /*.k-dropdown .k-state-default {
+
+        background-color: red;
+        background-image: none;
+    }*/
+</style>
+
+<br />
+<div class="container center_div">
+ 
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //change event
+            $("#srch-term").keyup(function () {
+
+                var val = $('#srch-term').val();
+
+                $("#grid").data("kendoGrid").dataSource.filter({
+                    logic: "or",
+                    filters: [
+                        {
+                            field: "Name",
+                            operator: "contains",
+                            value: val
+                        }
+
+                    ]
+                });
+
+
+            });
+        });
+
+    </script>
+    @(Html.Kendo().Grid<ComanyJsonDto>().Name("grid").Columns(columns =>
+      {
+          columns.Bound(p => p.Logo).Title("").ClientTemplate("#if(Logo!='null') {#<img src='#:Logo#' width='30' height='20'> #}#").Width(40);
+          columns.Bound(p => p.Name).Title("Company Name").ClientTemplate("<a href='/Superadmin/Company?id=#:CompanyId#'>#:Name#</a>");
+          columns.Bound(p => p.Contact).Title("Contact");
+          columns.Bound(p => p.Domain).Title("www");
+          columns.Bound(p => p.Category).Title("Category");
+          
+      }).Pageable().Sortable().Scrollable()
+      .ToolBar(toolbar =>
+    {
+        toolbar.Template(@<text>
+            <div class="toolbar">
+                <a style="display: block; float: left; margin-top: 9px; margin-left: 15px;" href="/Superadmin/Company">Add New</a>
+                <div class="input-group" style="float: right;display: inline">
+
+                    <input type="text" class="form-control" placeholder="Company" name="srch-term" id="srch-term"  style="display: inline" />
+                </div>
+            </div>
+        </text>);
+    })
+          .HtmlAttributes(new { style = "height:750px;" })
+              .DataSource(dataSource => dataSource.Ajax().PageSize(20)
+                         .Read(read => read.Action("_ajax_Companys", "Superadmin"))
+              )
+)
+</div>

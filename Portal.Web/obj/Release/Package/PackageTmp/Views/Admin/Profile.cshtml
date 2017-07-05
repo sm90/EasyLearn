@@ -1,0 +1,463 @@
+﻿@using System.Activities.Statements
+@using Portal.Web.Models
+@model Portal.Web.Models.UserProfile
+
+@{
+    ViewBag.Title = "User";
+    ViewBag.Subtitle = "Min profil";
+    ViewBag.Icon = "fa fa-user";
+    Layout = "~/Views/Shared/_CourseLayout.cshtml";
+}
+
+<link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+<link href="~/Content/kendo/2013.1.514/kendo.common.min.css" rel="stylesheet" />
+<link href="~/Content/kendo/2013.1.514/kendo.bootstrap.min.css" rel="stylesheet" />
+<script src="~/Scripts/kendo/2013.1.514/kendo.web.min.js"></script>
+<script src="/Scripts/kendo/2013.1.514/kendo.aspnetmvc.min.js"></script>
+<script src="~/Scripts/kendo/2013.1.514/cultures/kendo.culture.nb-NO.min.js"></script>
+<script src="/Scripts/kendo/2013.1.514/kendo.nb-NO.js"></script>
+<script language="javascript" text="text/javascript" src="http://www.flotcharts.org/flot/jquery.flot.js"></script>
+<script src="~/Scripts/flot/jquery.flot.tickrotor.js"></script>
+
+<!--[if lte IE 8]>
+    <script language="javascript" type="text/javascript" src="http://www.flotcharts.org/excanvas.min.js"></script>
+<![endif]-->
+
+<style type="text/css">
+    body {
+        font-family: Verdana, Arial, sans-serif;
+        font-size: 12px;
+    }
+
+    /*#placeholder {
+        width: 375px;
+        height: 225px;
+    }*/
+
+    .legend table, .legend > div {
+        height: 82px !important;
+        opacity: 1 !important;
+        left: 270px;
+        top: 10px;
+        width: 116px !important;
+    }
+
+    .legend table {
+        padding: 5px;
+    }
+    #a {
+        cursor: pointer;
+    }
+</style>
+
+<script>
+    kendo.culture("nb-NO");
+
+    //$(document).ready(function () {
+    //    $("#myModal").modal('show');
+    //});
+
+    $(document).ready(function () {
+        /* Try to dis-comment this:
+        $('#a').click(function () {
+         alert('jQuery.click()');
+         return true;
+        });
+        */
+    });
+    function button_onClick() {
+        $('#a').click();
+    }
+    function a_onClick(i) {
+
+        var data, data1, ticks;
+        data1 = [];
+        ticks = [];
+        
+        var array = @Html.Raw(Json.Encode(@ViewBag.graphElements));
+
+        for(var i = 0; i < array.length; i++) {
+            data1[i] = [i, array[i].Value];
+            ticks[i] = [i, array[i].Text];
+        }
+       
+
+        data = [
+            {
+                data: data1, color: "#5482FF", label: "Statistikk", bars: { show: true, barWidth: 0.8, align: 'left' }
+            }
+        ];
+
+        options = {
+            legend: {
+                position: "nw",
+                show: false
+            },
+            grid: {
+                clickable: true,
+                hoverable: true,
+                borderWidth: 0
+            },
+            yaxis: {
+                min: 0,
+                max: 100,
+                tickFormatter: function (v, axis) {
+                    return v + "%";
+                },
+                axisLabel: "Gjennomsnitt score per modul",
+                axisLabelUseCanvas: true,
+                axisLabelFontSizePixels: 12,
+                axisLabelFontFamily: 'Verdana, Arial',
+                axisLabelPadding: 3,
+                minTickSize: 1
+            },
+
+            xaxis: {
+                ticks: ticks,
+                tickLength: 0,
+                minTickSize: 1,
+            }
+
+
+
+            //xaxis: {
+            //    ticks: [[1, "Failed"], [2, "Passed"]]
+            //}
+        };
+
+$(document).ready(function () {
+    chart1 = $.plot($("#placeholder"), data, options);
+});
+
+$("#myModal").modal('show');
+}
+</script>
+<br />
+
+
+<div class="container">
+
+<div class="container">
+    <style type="text/css">
+        .bs-example {
+            margin: 20px;
+            margin-left: 240px;
+        }
+    </style>
+
+
+
+    @(Html.Kendo().Grid<EmptyGridModel>()
+          .Name("GridPersonalia")
+          .Columns(columns =>
+          {
+              columns.Bound(c => c.Empty1).Title("Personalia");
+
+          })
+          )
+
+    <div class="container">
+        <style>
+            .k-dropdown-wrap.k-state-focused,
+            .k-dropdown-wrap.k-state-active {
+                background: black !important;
+            }
+
+
+                .k-dropdown-wrap.k-state-focused .k-input,
+                .k-dropdown-wrap.k-state-active .k-input {
+                    color: white !important;
+                }
+
+
+            .k-list.k-reset li.k-state-selected,
+            .k-list.k-reset li.k-state-hover {
+                background: #555555;
+            }
+        </style>
+
+        <style type="text/css">
+            .bs-example {
+                margin: 20px;
+            }
+        </style>
+
+
+        <style>
+            .center_div {
+                margin: 0 auto;
+                /*     width: 20%; */ /* value of your choice which suits your alignment */
+            }
+        </style>
+
+        <br />
+        @if (ViewBag.profileUpdate != null)
+        {
+            <div class="alert alert-success">
+                <a class="close" data-dismiss="alert">×</a>
+                Profil er nå oppdatert.
+            </div>
+        }
+        <div class="container center_div">
+            <h3>Rediger profil</h3>
+
+            <form class="form-horizontal" role="form" action="/Admin/Profile" method="POST">
+                    
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Brukernavn</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="UserName"
+                               placeholder="" name="UserName" readonly="readonly" value="@Model.AspNetUser.UserName">
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="Firstname" class="col-sm-2 control-label">Fornavn</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="Firstname"
+                               placeholder="" name="Firstname" value="@Model.Firstname">
+                        @if (ViewBag.passwordUpdate == null)
+                        {
+                            @Html.ValidationMessage("Firstname")
+                        }
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Lastname" class="col-sm-2 control-label">Etternavn</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="Lastname"
+                               placeholder="" name="Lastname" value="@Model.Lastname">
+                        @if (ViewBag.passwordUpdate == null)
+                        {
+                            @Html.ValidationMessage("Lastname")
+                        }
+                    </div>
+                </div>
+                    
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Avdeling</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="DepartmentId"
+                               placeholder="" name="DepartmentId" readonly="readonly" value="@Model.Department.DepartmentName">
+
+                    </div>
+                </div>
+
+                @*<div class="form-group">
+                            <label for="Department" class="col-sm-2 control-label">Avdeling</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="Department"
+                                       placeholder="" name="Department" value="@Model.Department">
+                                @if (ViewBag.passwordUpdate == null)
+                                {
+                                    @Html.ValidationMessage("Department")
+                                }
+                            </div>
+                        </div>*@
+                    
+                <div class="form-group">
+                    <label for="Email" class="col-sm-2 control-label">Epost</label>
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control" id="Email"
+                               placeholder="" name="Email" value="@Model.Email">
+                        @if (ViewBag.passwordUpdate == null)
+                        {
+                            @Html.ValidationMessage("Email")
+                        }
+                    </div>
+                </div>
+                  
+                <div class="form-group">
+                    <label for="Phone" class="col-sm-2 control-label">Telefon</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="Phone"
+                               placeholder="" name="Phone" value="@Model.Phone">
+                        @if (ViewBag.passwordUpdate == null)
+                        {
+                            @Html.ValidationMessage("Phone")
+                        }
+                    </div>
+                </div>
+
+                @*<div class="form-group">
+                            <label for="Password1" class="col-sm-2 control-label">Passord</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" id="Password1"
+                                       placeholder="" name="Password1" value="">
+                                @Html.ValidationMessage("Password1")
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Password2" class="col-sm-2 control-label">Gjenta passord</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" id="Password2"
+                                       placeholder="" name="Password2" value="">
+                                @Html.ValidationMessage("Password2")
+                            </div>
+                        </div>*@
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-default">Lagre</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        @if (ViewBag.passwordUpdate != null)
+        {
+            <div class="alert alert-success">
+                <a class="close" data-dismiss="alert">×</a>
+                Passord er nå oppdatert.
+            </div>
+        }
+
+        <div class="container center_div">
+            <form class="form-horizontal" role="form" action="/Admin/Passord" method="POST">
+                <h3>Endre passord</h3>
+                <div class="form-group">
+                    <label for="Password0" class="col-sm-2 control-label">Gammelt passord</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" id="Password0"
+                               placeholder="" name="Password0" value="">
+                        @if (ViewBag.profileUpdate == null)
+                        {
+                            @Html.ValidationMessage("Password0")
+                        }
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Password1" class="col-sm-2 control-label">Nytt passord</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" id="Password1"
+                               placeholder="" name="Password1" value="">
+                        @if (ViewBag.profileUpdate == null)
+                        {
+                            @Html.ValidationMessage("Password1")
+                        }
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="Password2" class="col-sm-2 control-label">Gjenta nytt passord</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" id="Password2"
+                               placeholder="" name="Password2" value="">
+                        @if (ViewBag.profileUpdate == null)
+                        {
+                            @Html.ValidationMessage("Password2")
+                        }
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-default">Lagre</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    <style type="text/css">
+        .k-grid, .k-grid-pager, .k-grid * {
+            border: 0 !important;
+        }
+
+        .k-grid-header .k-header {
+            background: #555555 !important;
+            color: white !important;
+        }
+
+        .k-header {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+
+        progress {
+            width: 400px;
+            height: 14px;
+            /*   margin: 50px auto; */
+            /*display: block;*/
+            /* Important Thing */
+            -webkit-appearance: none;
+            border: none;
+            background-color: #f2f2f2;
+            color: #85c714;
+            /*border-radius: 5px 10px 5px 10px;*/
+            display: inline;
+        }
+    </style>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+   
+     
+    @(Html.Kendo().Grid<UserCourseList>()
+          .Name("Grid")
+          .Columns(columns =>
+          {
+              columns.Bound(c => c.CourseName).Title("Kurs").Width(200);
+              columns.Bound(c => c.CompletedPercent).Title("Antall moduler fullført").ClientTemplate(
+                  " <table><tr><td width=\"470px;valign=\"middle\"\"><div id=\"container\" style=\"width:100%; height:10px; border:1px solid black;background-color: lightgrey;height:15px\">" +
+                  "<div id=\"progress-bar\" style=\"width:#= CompletedPercent #%;background-color: YellowGreen  ;height:15px\"></div></div></td><td valign\"middle\"><label>#= CompletedPercent #%</label></td></tr></table>"
+                
+                  ).Width(470);
+              columns.Bound(c => c.ExamResult).Title("Eksamensresultat").ClientTemplate(
+                  "<img src=\"/Content/Icons_Granat/small_exame.png\" alt=\"eksamensresultat\"><strong>#= ExamResult #%</strong>"
+                  );
+
+              columns.Bound(c => c.CourseName).Title("Last ned/Print").ClientTemplate(
+                  "# if (Passed == true) { #"  +
+                  "<a href=\"/Pdf\">" +
+                  "<img src=\"/Content/Icons_Granat/download.png\" alt=\"last ned\"> <img src=\"/Content/Icons_Granat/print.png\" alt=\"last ned\">"+
+                  "</a>" +
+                  "# } #"
+                  ).Width(150);
+              columns.Bound(c => c.CourseName).Title("Statistikk").Width(150).ClientTemplate(
+                  "# if (Passed == true) { #" +
+                  "<a id='a' onClick=\"a_onClick()\"><img src=\"/Content/Icons_Granat/meny2_stat.png\" alt=\"statistikk\"></a>" +
+                  "# } else { #"  +
+                  "<img src=\"/Content/Icons_Granat/meny2_stat.png\" alt=\"statistikk\">" +
+                  "# }  #"
+
+                  );
+              //  $("#myModal").modal('show');  href='#' onClick=\"a_onClick(4)\"
+          })
+          .DataSource(dataSource => dataSource
+              .Ajax()
+              .PageSize(20)
+              .Model(model => model.Id(p => p.CourseId))
+              .Read(read => read.Action("_ajax_GetUserCourseList", "Admin", new { id = @Model.UserProfileId }))))
+</div>
+
+    <div id="myModal" class="modal fade">
+        <div class="modal-dialog" style="width:1100px; height:400px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Statistikk</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="placeholder" style="width: 1050px; height: 380px;"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

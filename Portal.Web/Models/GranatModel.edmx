@@ -1,0 +1,1313 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+          <Property Name="User_Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar(max)" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="Discriminator" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Companies">
+          <Key>
+            <PropertyRef Name="CompanyId" />
+          </Key>
+          <Property Name="CompanyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LogoUrl" Type="varchar" MaxLength="255" />
+          <Property Name="StylesheetUrl" Type="varchar" MaxLength="255" />
+          <Property Name="Domain" Type="varchar" MaxLength="200" />
+          <Property Name="OrgNummer" Type="varchar" MaxLength="255" />
+          <Property Name="BillinAddress" Type="varchar" MaxLength="255" />
+          <Property Name="ZipCode" Type="int" />
+          <Property Name="City" Type="varchar" MaxLength="255" />
+          <Property Name="Description" Type="varchar" MaxLength="255" />
+          <Property Name="ContactName" Type="varchar" MaxLength="255" />
+          <Property Name="ContactSurname" Type="varchar" MaxLength="255" />
+          <Property Name="CompanyPhone" Type="varchar" MaxLength="255" />
+          <Property Name="CompanyType" Type="int" />
+          <Property Name="CustomizeCompany" Type="text" />
+          <Property Name="Email" Type="varchar" MaxLength="255" />
+          <Property Name="Country" Type="varchar" MaxLength="255" />
+          <Property Name="ContactPhone" Type="varchar" MaxLength="255" />
+          <Property Name="TempPassword" Type="varchar" MaxLength="255" />
+          <Property Name="CompanyStatus" Type="int" />
+          <Property Name="AdminId" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Courses">
+          <Key>
+            <PropertyRef Name="CourseId" />
+          </Key>
+          <Property Name="CourseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="RequiredPassScore" Type="int" Nullable="false" />
+          <Property Name="RandomizeQuestionOrder" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Departments">
+          <Key>
+            <PropertyRef Name="DepartmentId" />
+          </Key>
+          <Property Name="DepartmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompanyId" Type="int" Nullable="false" />
+          <Property Name="DepartmentName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ExamQuestions">
+          <Key>
+            <PropertyRef Name="ExamQuestionId" />
+          </Key>
+          <Property Name="ExamQuestionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ExamId" Type="int" Nullable="false" />
+          <Property Name="ModuleQuestionId" Type="int" Nullable="false" />
+          <Property Name="Answered" Type="bit" Nullable="false" />
+          <Property Name="WasCorrect" Type="bit" />
+          <Property Name="SortOrder" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Exams">
+          <Key>
+            <PropertyRef Name="ExamId" />
+          </Key>
+          <Property Name="ExamId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AspNetUserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="CourseId" Type="int" Nullable="false" />
+          <Property Name="Started" Type="datetime" Nullable="false" />
+          <Property Name="Completed" Type="datetime" />
+          <Property Name="PassScore" Type="int" Nullable="false" />
+          <Property Name="ResultScore" Type="int" />
+        </EntityType>
+        <EntityType Name="ModuleQuestionCompany">
+          <Key>
+            <PropertyRef Name="ModuleCompanyId" />
+          </Key>
+          <Property Name="ModuleCompanyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ModuleId" Type="int" Nullable="false" />
+          <Property Name="CompanyId" Type="int" Nullable="false" />
+          <Property Name="NumCorrect" Type="int" Nullable="false" />
+          <Property Name="NumWrong" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ModuleQuestions">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ModuleId" Type="int" Nullable="false" />
+          <Property Name="ImageUrl1" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="ImageUrl2" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="IsImage1Correct" Type="bit" Nullable="false" />
+          <Property Name="IsImage2Correct" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Modules">
+          <Key>
+            <PropertyRef Name="ModuleId" />
+          </Key>
+          <Property Name="ModuleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CourseId" Type="int" Nullable="false" />
+          <Property Name="VideoUrl" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="ThumbUrl" Type="nvarchar" MaxLength="512" />
+          <Property Name="OrderNum" Type="int" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="UserCourses">
+          <Key>
+            <PropertyRef Name="UserCourseId" />
+          </Key>
+          <Property Name="UserCourseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserProfileId" Type="int" Nullable="false" />
+          <Property Name="CourseId" Type="int" Nullable="false" />
+          <Property Name="CurrentModuleId" Type="int" />
+          <Property Name="LastModuleId" Type="int" />
+          <Property Name="Completed" Type="bit" Nullable="false" />
+          <Property Name="MaxUserScore" Type="int" Nullable="false" />
+          <Property Name="CompletedDate" Type="datetime" />
+          <Property Name="HasPassed" Type="bit" />
+          <Property Name="NumTries" Type="int" />
+          <Property Name="AllowedExam" Type="bit" />
+        </EntityType>
+        <EntityType Name="UserModulesWatched">
+          <Key>
+            <PropertyRef Name="UserModulesWatchedId" />
+          </Key>
+          <Property Name="UserModulesWatchedId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserProfileId" Type="int" Nullable="false" />
+          <Property Name="ModuleId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserProfiles">
+          <Key>
+            <PropertyRef Name="UserProfileId" />
+          </Key>
+          <Property Name="UserProfileId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AspNetUserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="CompanyId" Type="int" Nullable="false" />
+          <Property Name="Firstname" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="Lastname" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+          <Property Name="LastLoginDate" Type="datetime" />
+          <Property Name="DepartmentId" Type="int" Nullable="false" />
+          <Property Name="isCreated" Type="int" />
+          <Property Name="UserKey" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <Association Name="FK_AspNetUserClaims_AspNetUsers_User_Id">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUserLogins_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUserRoles_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1" />
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUserRoles_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Departments_Companies">
+          <End Role="Companies" Type="Self.Companies" Multiplicity="1" />
+          <End Role="Departments" Type="Self.Departments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Companies">
+              <PropertyRef Name="CompanyId" />
+            </Principal>
+            <Dependent Role="Departments">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExamQuestions_Exams">
+          <End Role="Exams" Type="Self.Exams" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ExamQuestions" Type="Self.ExamQuestions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exams">
+              <PropertyRef Name="ExamId" />
+            </Principal>
+            <Dependent Role="ExamQuestions">
+              <PropertyRef Name="ExamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExamQuestions_ModuleQuestions">
+          <End Role="ModuleQuestions" Type="Self.ModuleQuestions" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ExamQuestions" Type="Self.ExamQuestions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ModuleQuestions">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="ExamQuestions">
+              <PropertyRef Name="ModuleQuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Exams_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Exams" Type="Self.Exams" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Exams">
+              <PropertyRef Name="AspNetUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Exams_Courses">
+          <End Role="Courses" Type="Self.Courses" Multiplicity="1" />
+          <End Role="Exams" Type="Self.Exams" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="Exams">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ModuleQuestionCompany_Companies">
+          <End Role="Companies" Type="Self.Companies" Multiplicity="1" />
+          <End Role="ModuleQuestionCompany" Type="Self.ModuleQuestionCompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Companies">
+              <PropertyRef Name="CompanyId" />
+            </Principal>
+            <Dependent Role="ModuleQuestionCompany">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ModuleQuestionCompany_Modules">
+          <End Role="Modules" Type="Self.Modules" Multiplicity="1" />
+          <End Role="ModuleQuestionCompany" Type="Self.ModuleQuestionCompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modules">
+              <PropertyRef Name="ModuleId" />
+            </Principal>
+            <Dependent Role="ModuleQuestionCompany">
+              <PropertyRef Name="ModuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ModuleQuestions_Modules">
+          <End Role="Modules" Type="Self.Modules" Multiplicity="1" />
+          <End Role="ModuleQuestions" Type="Self.ModuleQuestions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modules">
+              <PropertyRef Name="ModuleId" />
+            </Principal>
+            <Dependent Role="ModuleQuestions">
+              <PropertyRef Name="ModuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Modules_Courses">
+          <End Role="Courses" Type="Self.Courses" Multiplicity="1" />
+          <End Role="Modules" Type="Self.Modules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="Modules">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserCourses_Courses">
+          <End Role="Courses" Type="Self.Courses" Multiplicity="1" />
+          <End Role="UserCourses" Type="Self.UserCourses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="UserCourses">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserCourses_UserProfiles">
+          <End Role="UserProfiles" Type="Self.UserProfiles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserCourses" Type="Self.UserCourses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfiles">
+              <PropertyRef Name="UserProfileId" />
+            </Principal>
+            <Dependent Role="UserCourses">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserModulesWatched_Modules">
+          <End Role="Modules" Type="Self.Modules" Multiplicity="1" />
+          <End Role="UserModulesWatched" Type="Self.UserModulesWatched" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modules">
+              <PropertyRef Name="ModuleId" />
+            </Principal>
+            <Dependent Role="UserModulesWatched">
+              <PropertyRef Name="ModuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserModulesWatched_UserProfiles">
+          <End Role="UserProfiles" Type="Self.UserProfiles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserModulesWatched" Type="Self.UserModulesWatched" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfiles">
+              <PropertyRef Name="UserProfileId" />
+            </Principal>
+            <Dependent Role="UserModulesWatched">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserProfiles_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserProfiles" Type="Self.UserProfiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserProfiles">
+              <PropertyRef Name="AspNetUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserProfiles_Companies">
+          <End Role="Companies" Type="Self.Companies" Multiplicity="1" />
+          <End Role="UserProfiles" Type="Self.UserProfiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Companies">
+              <PropertyRef Name="CompanyId" />
+            </Principal>
+            <Dependent Role="UserProfiles">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserProfiles_Departments">
+          <End Role="Departments" Type="Self.Departments" Multiplicity="1" />
+          <End Role="UserProfiles" Type="Self.UserProfiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departments">
+              <PropertyRef Name="DepartmentId" />
+            </Principal>
+            <Dependent Role="UserProfiles">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Companies" EntityType="Self.Companies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Courses" EntityType="Self.Courses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Departments" EntityType="Self.Departments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExamQuestions" EntityType="Self.ExamQuestions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Exams" EntityType="Self.Exams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ModuleQuestionCompany" EntityType="Self.ModuleQuestionCompany" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ModuleQuestions" EntityType="Self.ModuleQuestions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Modules" EntityType="Self.Modules" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserCourses" EntityType="Self.UserCourses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserModulesWatched" EntityType="Self.UserModulesWatched" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserProfiles" EntityType="Self.UserProfiles" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AspNetUserClaims_AspNetUsers_User_Id" Association="Self.FK_AspNetUserClaims_AspNetUsers_User_Id">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUserLogins_AspNetUsers_UserId" Association="Self.FK_AspNetUserLogins_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUserRoles_AspNetRoles_RoleId" Association="Self.FK_AspNetUserRoles_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUserRoles_AspNetUsers_UserId" Association="Self.FK_AspNetUserRoles_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Departments_Companies" Association="Self.FK_Departments_Companies">
+            <End Role="Companies" EntitySet="Companies" />
+            <End Role="Departments" EntitySet="Departments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExamQuestions_Exams" Association="Self.FK_ExamQuestions_Exams">
+            <End Role="Exams" EntitySet="Exams" />
+            <End Role="ExamQuestions" EntitySet="ExamQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExamQuestions_ModuleQuestions" Association="Self.FK_ExamQuestions_ModuleQuestions">
+            <End Role="ModuleQuestions" EntitySet="ModuleQuestions" />
+            <End Role="ExamQuestions" EntitySet="ExamQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Exams_AspNetUsers" Association="Self.FK_Exams_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Exams" EntitySet="Exams" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Exams_Courses" Association="Self.FK_Exams_Courses">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="Exams" EntitySet="Exams" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ModuleQuestionCompany_Companies" Association="Self.FK_ModuleQuestionCompany_Companies">
+            <End Role="Companies" EntitySet="Companies" />
+            <End Role="ModuleQuestionCompany" EntitySet="ModuleQuestionCompany" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ModuleQuestionCompany_Modules" Association="Self.FK_ModuleQuestionCompany_Modules">
+            <End Role="Modules" EntitySet="Modules" />
+            <End Role="ModuleQuestionCompany" EntitySet="ModuleQuestionCompany" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ModuleQuestions_Modules" Association="Self.FK_ModuleQuestions_Modules">
+            <End Role="Modules" EntitySet="Modules" />
+            <End Role="ModuleQuestions" EntitySet="ModuleQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Modules_Courses" Association="Self.FK_Modules_Courses">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="Modules" EntitySet="Modules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserCourses_Courses" Association="Self.FK_UserCourses_Courses">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="UserCourses" EntitySet="UserCourses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserCourses_UserProfiles" Association="Self.FK_UserCourses_UserProfiles">
+            <End Role="UserProfiles" EntitySet="UserProfiles" />
+            <End Role="UserCourses" EntitySet="UserCourses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserModulesWatched_Modules" Association="Self.FK_UserModulesWatched_Modules">
+            <End Role="Modules" EntitySet="Modules" />
+            <End Role="UserModulesWatched" EntitySet="UserModulesWatched" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserModulesWatched_UserProfiles" Association="Self.FK_UserModulesWatched_UserProfiles">
+            <End Role="UserProfiles" EntitySet="UserProfiles" />
+            <End Role="UserModulesWatched" EntitySet="UserModulesWatched" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserProfiles_AspNetUsers" Association="Self.FK_UserProfiles_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="UserProfiles" EntitySet="UserProfiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserProfiles_Companies" Association="Self.FK_UserProfiles_Companies">
+            <End Role="Companies" EntitySet="Companies" />
+            <End Role="UserProfiles" EntitySet="UserProfiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserProfiles_Departments" Association="Self.FK_UserProfiles_Departments">
+            <End Role="Departments" EntitySet="Departments" />
+            <End Role="UserProfiles" EntitySet="UserProfiles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="User_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogin">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+          </Key>
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Discriminator" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+          <NavigationProperty Name="Exams" Relationship="Model.FK_Exams_AspNetUsers" FromRole="AspNetUser" ToRole="Exam" />
+          <NavigationProperty Name="UserProfiles" Relationship="Model.FK_UserProfiles_AspNetUsers" FromRole="AspNetUser" ToRole="UserProfile" />
+        </EntityType>
+        <EntityType Name="ModuleQuestion">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ModuleId" Type="Int32" Nullable="false" />
+          <Property Name="ImageUrl1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ImageUrl2" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsImage1Correct" Type="Boolean" Nullable="false" />
+          <Property Name="IsImage2Correct" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ExamQuestions" Relationship="Model.FK_ExamQuestions_ModuleQuestions" FromRole="ModuleQuestion" ToRole="ExamQuestion" />
+          <NavigationProperty Name="Module" Relationship="Model.FK_ModuleQuestions_Modules" FromRole="ModuleQuestion" ToRole="Module" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
+          <EntitySet Name="ModuleQuestions" EntityType="Self.ModuleQuestion" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <EntitySet Name="Exams" EntityType="Model.Exam" />
+          <AssociationSet Name="FK_Exams_AspNetUsers" Association="Model.FK_Exams_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Exam" EntitySet="Exams" />
+          </AssociationSet>
+          <EntitySet Name="ExamQuestions" EntityType="Model.ExamQuestion" />
+          <AssociationSet Name="FK_ExamQuestions_Exams" Association="Model.FK_ExamQuestions_Exams">
+            <End Role="Exam" EntitySet="Exams" />
+            <End Role="ExamQuestion" EntitySet="ExamQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExamQuestions_ModuleQuestions" Association="Model.FK_ExamQuestions_ModuleQuestions">
+            <End Role="ModuleQuestion" EntitySet="ModuleQuestions" />
+            <End Role="ExamQuestion" EntitySet="ExamQuestions" />
+          </AssociationSet>
+          <EntitySet Name="Courses" EntityType="Model.Course" />
+          <AssociationSet Name="FK_Exams_Courses" Association="Model.FK_Exams_Courses">
+            <End Role="Cours" EntitySet="Courses" />
+            <End Role="Exam" EntitySet="Exams" />
+          </AssociationSet>
+          <EntitySet Name="UserModulesWatcheds" EntityType="Model.UserModulesWatched" />
+          <EntitySet Name="ModuleQuestionCompanies" EntityType="Model.ModuleQuestionCompany" />
+          <EntitySet Name="UserCourses" EntityType="Model.UserCours" />
+          <AssociationSet Name="FK_UserCourses_Courses" Association="Model.FK_UserCourses_Courses">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="UserCours" EntitySet="UserCourses" />
+          </AssociationSet>
+          <EntitySet Name="Departments" EntityType="Model.Department" />
+          <EntitySet Name="UserProfiles" EntityType="Model.UserProfile" />
+          <AssociationSet Name="FK_UserProfiles_AspNetUsers" Association="Model.FK_UserProfiles_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserProfiles_Departments" Association="Model.FK_UserProfiles_Departments">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserCourses_UserProfiles" Association="Model.FK_UserCourses_UserProfiles">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="UserCours" EntitySet="UserCourses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserModulesWatched_UserProfiles" Association="Model.FK_UserModulesWatched_UserProfiles">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="UserModulesWatched" EntitySet="UserModulesWatcheds" />
+          </AssociationSet>
+          <EntitySet Name="Modules" EntityType="Model.Module" />
+          <AssociationSet Name="FK_Modules_Courses" Association="Model.FK_Modules_Courses">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="Module" EntitySet="Modules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ModuleQuestionCompany_Modules" Association="Model.FK_ModuleQuestionCompany_Modules">
+            <End Role="Module" EntitySet="Modules" />
+            <End Role="ModuleQuestionCompany" EntitySet="ModuleQuestionCompanies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ModuleQuestions_Modules" Association="Model.FK_ModuleQuestions_Modules">
+            <End Role="Module" EntitySet="Modules" />
+            <End Role="ModuleQuestion" EntitySet="ModuleQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserModulesWatched_Modules" Association="Model.FK_UserModulesWatched_Modules">
+            <End Role="Module" EntitySet="Modules" />
+            <End Role="UserModulesWatched" EntitySet="UserModulesWatcheds" />
+          </AssociationSet>
+          <EntitySet Name="Companies" EntityType="Model.Company" />
+          <AssociationSet Name="FK_Departments_Companies" Association="Model.FK_Departments_Companies">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="Department" EntitySet="Departments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ModuleQuestionCompany_Companies" Association="Model.FK_ModuleQuestionCompany_Companies">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="ModuleQuestionCompany" EntitySet="ModuleQuestionCompanies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserProfiles_Companies" Association="Model.FK_UserProfiles_Companies">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Exam">
+          <Key>
+            <PropertyRef Name="ExamId" />
+          </Key>
+          <Property Name="ExamId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AspNetUserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CourseId" Type="Int32" Nullable="false" />
+          <Property Name="Started" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Completed" Type="DateTime" Precision="3" />
+          <Property Name="PassScore" Type="Int32" Nullable="false" />
+          <Property Name="ResultScore" Type="Int32" />
+          <NavigationProperty Name="AspNetUser" Relationship="Model.FK_Exams_AspNetUsers" FromRole="Exam" ToRole="AspNetUser" />
+          <NavigationProperty Name="ExamQuestions" Relationship="Model.FK_ExamQuestions_Exams" FromRole="Exam" ToRole="ExamQuestion" />
+          <NavigationProperty Name="Cours" Relationship="Model.FK_Exams_Courses" FromRole="Exam" ToRole="Cours" />
+        </EntityType>
+        <Association Name="FK_Exams_AspNetUsers">
+          <End Type="Model.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="Model.Exam" Role="Exam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Exam">
+              <PropertyRef Name="AspNetUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ExamQuestion">
+          <Key>
+            <PropertyRef Name="ExamQuestionId" />
+          </Key>
+          <Property Name="ExamQuestionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ExamId" Type="Int32" Nullable="false" />
+          <Property Name="ModuleQuestionId" Type="Int32" Nullable="false" />
+          <Property Name="Answered" Type="Boolean" Nullable="false" />
+          <Property Name="WasCorrect" Type="Boolean" />
+          <Property Name="SortOrder" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Exam" Relationship="Model.FK_ExamQuestions_Exams" FromRole="ExamQuestion" ToRole="Exam" />
+          <NavigationProperty Name="ModuleQuestion" Relationship="Model.FK_ExamQuestions_ModuleQuestions" FromRole="ExamQuestion" ToRole="ModuleQuestion" />
+        </EntityType>
+        <Association Name="FK_ExamQuestions_Exams">
+          <End Type="Model.Exam" Role="Exam" Multiplicity="1" />
+          <End Type="Model.ExamQuestion" Role="ExamQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exam">
+              <PropertyRef Name="ExamId" />
+            </Principal>
+            <Dependent Role="ExamQuestion">
+              <PropertyRef Name="ExamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExamQuestions_ModuleQuestions">
+          <End Type="Model.ModuleQuestion" Role="ModuleQuestion" Multiplicity="1" />
+          <End Type="Model.ExamQuestion" Role="ExamQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ModuleQuestion">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="ExamQuestion">
+              <PropertyRef Name="ModuleQuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="CourseId" />
+          </Key>
+          <Property Name="CourseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="RequiredPassScore" Type="Int32" Nullable="false" />
+          <Property Name="RandomizeQuestionOrder" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Exams" Relationship="Model.FK_Exams_Courses" FromRole="Cours" ToRole="Exam" />
+          <NavigationProperty Name="UserCourses" Relationship="Model.FK_UserCourses_Courses" FromRole="Course" ToRole="UserCours" />
+          <NavigationProperty Name="Modules" Relationship="Model.FK_Modules_Courses" FromRole="Course" ToRole="Module" />
+        </EntityType>
+        <Association Name="FK_Exams_Courses">
+          <End Type="Model.Course" Role="Cours" Multiplicity="1" />
+          <End Type="Model.Exam" Role="Exam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cours">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="Exam">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="UserModulesWatched">
+          <Key>
+            <PropertyRef Name="UserModulesWatchedId" />
+          </Key>
+          <Property Name="UserModulesWatchedId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserProfileId" Type="Int32" Nullable="false" />
+          <Property Name="ModuleId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="UserProfile" Relationship="Model.FK_UserModulesWatched_UserProfiles" FromRole="UserModulesWatched" ToRole="UserProfile" />
+          <NavigationProperty Name="Module" Relationship="Model.FK_UserModulesWatched_Modules" FromRole="UserModulesWatched" ToRole="Module" />
+        </EntityType>
+        <EntityType Name="ModuleQuestionCompany">
+          <Key>
+            <PropertyRef Name="ModuleCompanyId" />
+          </Key>
+          <Property Name="ModuleCompanyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ModuleId" Type="Int32" Nullable="false" />
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
+          <Property Name="NumCorrect" Type="Int32" Nullable="false" />
+          <Property Name="NumWrong" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Module" Relationship="Model.FK_ModuleQuestionCompany_Modules" FromRole="ModuleQuestionCompany" ToRole="Module" />
+          <NavigationProperty Name="Company" Relationship="Model.FK_ModuleQuestionCompany_Companies" FromRole="ModuleQuestionCompany" ToRole="Company" />
+        </EntityType>
+        <EntityType Name="UserCours">
+          <Key>
+            <PropertyRef Name="UserCourseId" />
+          </Key>
+          <Property Name="UserCourseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserProfileId" Type="Int32" Nullable="false" />
+          <Property Name="CourseId" Type="Int32" Nullable="false" />
+          <Property Name="CurrentModuleId" Type="Int32" />
+          <Property Name="LastModuleId" Type="Int32" />
+          <Property Name="Completed" Type="Boolean" Nullable="false" />
+          <Property Name="MaxUserScore" Type="Int32" Nullable="false" />
+          <Property Name="CompletedDate" Type="DateTime" Precision="3" />
+          <Property Name="HasPassed" Type="Boolean" />
+          <Property Name="NumTries" Type="Int32" />
+          <Property Name="AllowedExam" Type="Boolean" />
+          <NavigationProperty Name="Cours" Relationship="Model.FK_UserCourses_Courses" FromRole="UserCours" ToRole="Course" />
+          <NavigationProperty Name="UserProfile" Relationship="Model.FK_UserCourses_UserProfiles" FromRole="UserCours" ToRole="UserProfile" />
+        </EntityType>
+        <Association Name="FK_UserCourses_Courses">
+          <End Type="Model.Course" Role="Course" Multiplicity="1" />
+          <End Type="Model.UserCours" Role="UserCours" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="UserCours">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="DepartmentId" />
+          </Key>
+          <Property Name="DepartmentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
+          <Property Name="DepartmentName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="UserProfiles" Relationship="Model.FK_UserProfiles_Departments" FromRole="Department" ToRole="UserProfile" />
+          <NavigationProperty Name="Company" Relationship="Model.FK_Departments_Companies" FromRole="Department" ToRole="Company" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="UserProfileId" />
+          </Key>
+          <Property Name="UserProfileId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AspNetUserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
+          <Property Name="Firstname" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="Lastname" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastLoginDate" Type="DateTime" Precision="3" />
+          <Property Name="DepartmentId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Model.FK_UserProfiles_AspNetUsers" FromRole="UserProfile" ToRole="AspNetUser" />
+          <NavigationProperty Name="Department" Relationship="Model.FK_UserProfiles_Departments" FromRole="UserProfile" ToRole="Department" />
+          <NavigationProperty Name="UserCourses" Relationship="Model.FK_UserCourses_UserProfiles" FromRole="UserProfile" ToRole="UserCours" />
+          <NavigationProperty Name="UserModulesWatcheds" Relationship="Model.FK_UserModulesWatched_UserProfiles" FromRole="UserProfile" ToRole="UserModulesWatched" />
+          <NavigationProperty Name="Company" Relationship="Model.FK_UserProfiles_Companies" FromRole="UserProfile" ToRole="Company" />
+          <Property Name="isCreated" Type="Int32" Nullable="true" />
+          <Property Name="UserKey" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="true" />
+        </EntityType>
+        <Association Name="FK_UserProfiles_AspNetUsers">
+          <End Type="Model.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="Model.UserProfile" Role="UserProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserProfile">
+              <PropertyRef Name="AspNetUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserProfiles_Departments">
+          <End Type="Model.Department" Role="Department" Multiplicity="1" />
+          <End Type="Model.UserProfile" Role="UserProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartmentId" />
+            </Principal>
+            <Dependent Role="UserProfile">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserCourses_UserProfiles">
+          <End Type="Model.UserProfile" Role="UserProfile" Multiplicity="1" />
+          <End Type="Model.UserCours" Role="UserCours" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserProfileId" />
+            </Principal>
+            <Dependent Role="UserCours">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserModulesWatched_UserProfiles">
+          <End Type="Model.UserProfile" Role="UserProfile" Multiplicity="1" />
+          <End Type="Model.UserModulesWatched" Role="UserModulesWatched" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserProfileId" />
+            </Principal>
+            <Dependent Role="UserModulesWatched">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Module">
+          <Key>
+            <PropertyRef Name="ModuleId" />
+          </Key>
+          <Property Name="ModuleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseId" Type="Int32" Nullable="false" />
+          <Property Name="VideoUrl" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ThumbUrl" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="OrderNum" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Cours" Relationship="Model.FK_Modules_Courses" FromRole="Module" ToRole="Course" />
+          <NavigationProperty Name="ModuleQuestionCompanies" Relationship="Model.FK_ModuleQuestionCompany_Modules" FromRole="Module" ToRole="ModuleQuestionCompany" />
+          <NavigationProperty Name="ModuleQuestions" Relationship="Model.FK_ModuleQuestions_Modules" FromRole="Module" ToRole="ModuleQuestion" />
+          <NavigationProperty Name="UserModulesWatcheds" Relationship="Model.FK_UserModulesWatched_Modules" FromRole="Module" ToRole="UserModulesWatched" />
+        </EntityType>
+        <Association Name="FK_Modules_Courses">
+          <End Type="Model.Course" Role="Course" Multiplicity="1" />
+          <End Type="Model.Module" Role="Module" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="Module">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ModuleQuestionCompany_Modules">
+          <End Type="Model.Module" Role="Module" Multiplicity="1" />
+          <End Type="Model.ModuleQuestionCompany" Role="ModuleQuestionCompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Module">
+              <PropertyRef Name="ModuleId" />
+            </Principal>
+            <Dependent Role="ModuleQuestionCompany">
+              <PropertyRef Name="ModuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ModuleQuestions_Modules">
+          <End Type="Model.Module" Role="Module" Multiplicity="1" />
+          <End Type="Model.ModuleQuestion" Role="ModuleQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Module">
+              <PropertyRef Name="ModuleId" />
+            </Principal>
+            <Dependent Role="ModuleQuestion">
+              <PropertyRef Name="ModuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserModulesWatched_Modules">
+          <End Type="Model.Module" Role="Module" Multiplicity="1" />
+          <End Type="Model.UserModulesWatched" Role="UserModulesWatched" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Module">
+              <PropertyRef Name="ModuleId" />
+            </Principal>
+            <Dependent Role="UserModulesWatched">
+              <PropertyRef Name="ModuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="CompanyId" />
+          </Key>
+          <Property Name="CompanyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LogoUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="StylesheetUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Departments" Relationship="Model.FK_Departments_Companies" FromRole="Company" ToRole="Department" />
+          <NavigationProperty Name="ModuleQuestionCompanies" Relationship="Model.FK_ModuleQuestionCompany_Companies" FromRole="Company" ToRole="ModuleQuestionCompany" />
+          <NavigationProperty Name="UserProfiles" Relationship="Model.FK_UserProfiles_Companies" FromRole="Company" ToRole="UserProfile" />
+          <Property Name="Domain" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="OrgNummer" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="BillinAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ZipCode" Type="Int32" />
+          <Property Name="City" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ContactName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ContactSurname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyPhone" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyType" Type="Model.CompanyType" />
+          <Property Name="CustomizeCompany" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ContactPhone" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TempPassword" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyStatus" Type="Model.CompanyStatus" />
+          <Property Name="AdminId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_Departments_Companies">
+          <End Type="Model.Company" Role="Company" Multiplicity="1" />
+          <End Type="Model.Department" Role="Department" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="CompanyId" />
+            </Principal>
+            <Dependent Role="Department">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ModuleQuestionCompany_Companies">
+          <End Type="Model.Company" Role="Company" Multiplicity="1" />
+          <End Type="Model.ModuleQuestionCompany" Role="ModuleQuestionCompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="CompanyId" />
+            </Principal>
+            <Dependent Role="ModuleQuestionCompany">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserProfiles_Companies">
+          <End Type="Model.Company" Role="Company" Multiplicity="1" />
+          <End Type="Model.UserProfile" Role="UserProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="CompanyId" />
+            </Principal>
+            <Dependent Role="UserProfile">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EnumType Name="CompanyType">
+          <Member Name="Company" Value="1" />
+          <Member Name="Author" Value="2" />
+          <Member Name="Producer" Value="3" />
+        </EnumType>
+        <EnumType Name="CompanyStatus">
+          <Member Name="ACTIVE" Value="1" />
+          <Member Name="DISABLED" Value="2" />
+          <Member Name="EXPECTATION" Value="3" />
+        </EnumType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="Model.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="Model.AspNetUserClaim">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="Model.AspNetUserLogin">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="Model.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="Discriminator" ColumnName="Discriminator" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ModuleQuestions">
+            <EntityTypeMapping TypeName="Model.ModuleQuestion">
+              <MappingFragment StoreEntitySet="ModuleQuestions">
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="ModuleId" ColumnName="ModuleId" />
+                <ScalarProperty Name="ImageUrl1" ColumnName="ImageUrl1" />
+                <ScalarProperty Name="ImageUrl2" ColumnName="ImageUrl2" />
+                <ScalarProperty Name="IsImage1Correct" ColumnName="IsImage1Correct" />
+                <ScalarProperty Name="IsImage2Correct" ColumnName="IsImage2Correct" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="Model.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="Exams">
+            <EntityTypeMapping TypeName="Model.Exam">
+              <MappingFragment StoreEntitySet="Exams">
+                <ScalarProperty Name="ResultScore" ColumnName="ResultScore" />
+                <ScalarProperty Name="PassScore" ColumnName="PassScore" />
+                <ScalarProperty Name="Completed" ColumnName="Completed" />
+                <ScalarProperty Name="Started" ColumnName="Started" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="AspNetUserId" ColumnName="AspNetUserId" />
+                <ScalarProperty Name="ExamId" ColumnName="ExamId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExamQuestions">
+            <EntityTypeMapping TypeName="Model.ExamQuestion">
+              <MappingFragment StoreEntitySet="ExamQuestions">
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+                <ScalarProperty Name="WasCorrect" ColumnName="WasCorrect" />
+                <ScalarProperty Name="Answered" ColumnName="Answered" />
+                <ScalarProperty Name="ModuleQuestionId" ColumnName="ModuleQuestionId" />
+                <ScalarProperty Name="ExamId" ColumnName="ExamId" />
+                <ScalarProperty Name="ExamQuestionId" ColumnName="ExamQuestionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Courses">
+            <EntityTypeMapping TypeName="Model.Course">
+              <MappingFragment StoreEntitySet="Courses">
+                <ScalarProperty Name="RandomizeQuestionOrder" ColumnName="RandomizeQuestionOrder" />
+                <ScalarProperty Name="RequiredPassScore" ColumnName="RequiredPassScore" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserModulesWatcheds">
+            <EntityTypeMapping TypeName="Model.UserModulesWatched">
+              <MappingFragment StoreEntitySet="UserModulesWatched">
+                <ScalarProperty Name="ModuleId" ColumnName="ModuleId" />
+                <ScalarProperty Name="UserProfileId" ColumnName="UserProfileId" />
+                <ScalarProperty Name="UserModulesWatchedId" ColumnName="UserModulesWatchedId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ModuleQuestionCompanies">
+            <EntityTypeMapping TypeName="Model.ModuleQuestionCompany">
+              <MappingFragment StoreEntitySet="ModuleQuestionCompany">
+                <ScalarProperty Name="NumWrong" ColumnName="NumWrong" />
+                <ScalarProperty Name="NumCorrect" ColumnName="NumCorrect" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="ModuleId" ColumnName="ModuleId" />
+                <ScalarProperty Name="ModuleCompanyId" ColumnName="ModuleCompanyId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserCourses">
+            <EntityTypeMapping TypeName="Model.UserCours">
+              <MappingFragment StoreEntitySet="UserCourses">
+                <ScalarProperty Name="AllowedExam" ColumnName="AllowedExam" />
+                <ScalarProperty Name="NumTries" ColumnName="NumTries" />
+                <ScalarProperty Name="HasPassed" ColumnName="HasPassed" />
+                <ScalarProperty Name="CompletedDate" ColumnName="CompletedDate" />
+                <ScalarProperty Name="MaxUserScore" ColumnName="MaxUserScore" />
+                <ScalarProperty Name="Completed" ColumnName="Completed" />
+                <ScalarProperty Name="LastModuleId" ColumnName="LastModuleId" />
+                <ScalarProperty Name="CurrentModuleId" ColumnName="CurrentModuleId" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="UserProfileId" ColumnName="UserProfileId" />
+                <ScalarProperty Name="UserCourseId" ColumnName="UserCourseId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="Model.Department">
+              <MappingFragment StoreEntitySet="Departments">
+                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserProfiles">
+            <EntityTypeMapping TypeName="Model.UserProfile">
+              <MappingFragment StoreEntitySet="UserProfiles">
+                <ScalarProperty Name="UserKey" ColumnName="UserKey" />
+                <ScalarProperty Name="isCreated" ColumnName="isCreated" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+                <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="AspNetUserId" ColumnName="AspNetUserId" />
+                <ScalarProperty Name="UserProfileId" ColumnName="UserProfileId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Modules">
+            <EntityTypeMapping TypeName="Model.Module">
+              <MappingFragment StoreEntitySet="Modules">
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="OrderNum" ColumnName="OrderNum" />
+                <ScalarProperty Name="ThumbUrl" ColumnName="ThumbUrl" />
+                <ScalarProperty Name="VideoUrl" ColumnName="VideoUrl" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="ModuleId" ColumnName="ModuleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Companies">
+            <EntityTypeMapping TypeName="Model.Company">
+              <MappingFragment StoreEntitySet="Companies">
+                <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+                <ScalarProperty Name="CompanyStatus" ColumnName="CompanyStatus" />
+                <ScalarProperty Name="TempPassword" ColumnName="TempPassword" />
+                <ScalarProperty Name="ContactPhone" ColumnName="ContactPhone" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="CustomizeCompany" ColumnName="CustomizeCompany" />
+                <ScalarProperty Name="CompanyType" ColumnName="CompanyType" />
+                <ScalarProperty Name="CompanyPhone" ColumnName="CompanyPhone" />
+                <ScalarProperty Name="ContactSurname" ColumnName="ContactSurname" />
+                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="BillinAddress" ColumnName="BillinAddress" />
+                <ScalarProperty Name="OrgNummer" ColumnName="OrgNummer" />
+                <ScalarProperty Name="Domain" ColumnName="Domain" />
+                <ScalarProperty Name="StylesheetUrl" ColumnName="StylesheetUrl" />
+                <ScalarProperty Name="LogoUrl" ColumnName="LogoUrl" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "UpLoad";
+    Layout = "~/Views/Shared/_CourseLayout.cshtml";
+}
+
+<h2>UpLoad</h2>
+
+<form action="" method="post" enctype="multipart/form-data">
+
+    <label for="file">Filename:</label>
+    <input type="file" name="file" id="file" />
+
+    <input type="submit" />
+</form>
+
+@using (Html.BeginForm("UploadUsers", "Admin", FormMethod.Post, new { EncType = "multipart/form-data" }))
+{
+    <table>              **//EDITED BELLOW**
+                <tr><form action="" method="post">
+                    <td>Upload Excel File: </td>
+                    <td><input type="text" name="NAMEtxtFileName"/></td>
+                    <td><input type="button" value="Upload" id="IDbtnUpload" name="NAMEbtnUpload"/></td>
+                    </form>
+                </tr>
+                
+                <tr>
+                    <td></td>
+                    <td align="right"><input type="submit" value="Process" /></td>
+                    <td></td>
+                </tr>
+            </table>
+}

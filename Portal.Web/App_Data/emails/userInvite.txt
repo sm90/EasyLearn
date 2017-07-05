@@ -1,0 +1,31 @@
+﻿Use this area to offer a short preview of your email's content.
+
+
+** Velkommen til Easylearn
+------------------------------------------------------------
+
+Hei [FNAME],
+
+Du mottar denne mailen fordi du har blitt lagt til som bruker i
+et underholdende opplæringsprogram hvor du ser på film og svarer på spørsmål for å lære nye ting.
+
+For å begynne klikker du på knappen nedenfor og fyller ut dine personlige data.
+START (http://[URL]/Account/Personalization?name=[USERNAME]&key=[KEY])
+KORT OM EASYLEARN
+Visste du at hjernen behandler visuell informasjon 60.000 ganger raskere enn tekst?
+10% av oss husker hva vi hører
+20% husker hva vi leser
+80% av oss husker ting vi ser og gjør
+93% av all kommunikasjon er ikke-verbal
+Easylearn benytter levende bilder for effektiv opplæring
+Easylearn kurs kan gjennomføres når og hvor som helst ved hjelp av PC/Mac, nettbrett eller mobil
+Kursene er forfattet av fagfolk med lang erfaring, gode referanser og gode resultater. Filmene lages av profesjonelle filmprodusenter.
+
+============================================================
+Copyright © *|CURRENT_YEAR|* *|LIST:COMPANY|*, All rights reserved.
+*|IFNOT:ARCHIVE_PAGE|* *|LIST:DESCRIPTION|*
+
+Our mailing address is:
+*|LIST_ADDRESS|* *|END:IF|*
+
+*|IF:REWARDS|* *|REWARDS_TEXT|* *|END:IF|*

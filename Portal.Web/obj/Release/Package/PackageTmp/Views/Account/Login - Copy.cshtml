@@ -1,0 +1,37 @@
+﻿@model Portal.Web.Models.LoginViewModel
+
+@{
+    Layout = null;
+    ViewBag.Title = "Log in";
+}
+<link href="~/Content/login.css" rel="stylesheet" />
+
+
+<div id="container">
+@*@Html.ValidationSummary(true)*@
+
+
+    @using (Html.BeginForm("Login", "Account", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+    {
+
+        @Html.AntiForgeryToken()
+        <label for="username">Brukernavn:</label>
+
+        <input type="text" id="username" name="username">
+
+        <label for="password">Passord:</label>
+
+        <input type="password" id="password" name="password">
+
+        <div id="lower">
+
+            <input type="checkbox" id="RememberMe"><label class="check" for="checkbox">Husk meg?</label>
+
+            <input type="submit" value="Logg inn">
+
+        </div><!--/ lower-->
+    }
+
+
+    
+</div><!--/ container-->

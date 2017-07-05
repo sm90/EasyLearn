@@ -1,0 +1,21 @@
+﻿<div class="modal fade" id="questionModal" tabindex="-1" role="dialog" aria-labelledby="questionModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="alternatives">
+                    <button id="alternative_0" class="btn-transparent btn-alternative left"><img class="thumbnail img-responsive img-alternative" ng-src="activeQuestion.alternatives[0].imgUrl'" /></button>
+                    <button id="alternative_1" class="btn-transparent btn-alternative left"><img class="thumbnail img-responsive img-alternative" ng-src="activeQuestion.alternatives[1].imgUrl'" /></button>
+                </div>
+                <div class="response">
+                    <i class="fa"></i>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="nextQuestion" type="button" class="btn btn-black disabled"><i class="fa fa-fast-forward"></i></button>
+            </div>
+        </div>
+    </div>
+</div>

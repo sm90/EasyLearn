@@ -1,0 +1,238 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_CourseLayout.cshtml";
+  
+}
+
+@section styles {
+    <style>
+        .modal-backdrop.in {
+            background-color: #fff;
+        }
+        /* bootstarp styles */
+        .two button {
+            /*display: none;*/
+        }
+        .popover-content p {
+            padding: 5px 15px;
+        }
+        /* bulb-helper styles */
+        .bulb img {
+            height: 25px;
+            width: auto;
+        }
+    </style>
+}
+<script src="/Scripts/jquery.cookie.min.js"></script>
+
+<div class="container container-full">
+    <div class="course-header">
+        @*<img class="img-responsive" src="~/Content/img/header2.png" />*@
+        <img class="img-responsive" src="~/Content/img/front_picture_hms.jpg" />
+        <button id="videoPlay" class="btn-transparent" data-toggle="modal" data-target="#videoModal">
+            <!--<img src="~/Content/img/play_btn_grey.png" />--></button>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="videoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @*<div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>*@
+            <div class="modal-body">
+                <div class="embed-container">
+                    
+                    <iframe id="vimeoplayer" src="@Session["startVidio"].ToString()" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                    @* <iframe id="vimeoplayer" src="//player.vimeo.com/video/83791193?api=1&player_id=vimeoplayer" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container" style="margin-top: -15px;">
+    <a id="start_button" class="btn btn-block btn-lg btn-black btn-start-course" href="@Url.Action("Index", "CoursePlayer")"><i class="fa fa-play-circle-o"></i> START</a>
+    @*<button class="btn btn-block btn-lg btn-black btn-start-course">START <i class="fa fa-play-circle-o"></i></button>*@
+
+    <div class="col-md-3 col-sm-4">
+        <a href="/CoursePlayer/?id=1">
+            <div class="course-module-thumb">
+                <img class="img-responsive" src="~/Content/Modules/Course1/modul1_intro.jpg" />
+                <div class="img-caption-overlay">Rollefordeling</div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-3 col-sm-4">
+        <a href="/CoursePlayer/?id=2">
+            <div class="course-module-thumb">
+                <img class="img-responsive" src="~/Content/Modules/Course1/modul2.jpg" />
+                <div class="img-caption-overlay">Introduksjon HMS</div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-3 col-sm-4">
+        <a href="/CoursePlayer/?id=3">
+            <div class="course-module-thumb">
+                <img class="img-responsive" src="~/Content/Modules/Course1/modul3.jpg" />
+                <div class="img-caption-overlay">Verneutstyr</div>
+            </div>
+        </a>
+    </div>
+
+    <div class="clearfix visible-sm"></div>
+
+    <div class="col-md-3 col-sm-4">
+        <a href="/CoursePlayer/?id=4">
+            <div class="course-module-thumb">
+                <img class="img-responsive" src="~/Content/Modules/Course1/modul4.jpg" />
+                <div class="img-caption-overlay">RUH Rapport</div>
+            </div>
+        </a>
+    </div>
+
+    <div class="clearfix visible-lg visible-md"></div>
+
+    <div class="col-md-3 col-sm-4">
+        <a href="/CoursePlayer/?id=5">
+            <div class="course-module-thumb">
+                <img class="img-responsive" src="~/Content/Modules/Course1/modul5.jpg" />
+                <div class="img-caption-overlay">Sikker jobb analyse</div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-3 col-sm-4">
+        <a href="/CoursePlayer/?id=6">
+            <div class="course-module-thumb">
+                <img class="img-responsive" src="~/Content/Modules/Course1/modul6.jpg" />
+                <div class="img-caption-overlay">Arbeid i høyden</div>
+            </div>
+        </a>
+    </div>
+
+    <div class="clearfix visible-sm"></div>
+
+    <div class="col-md-3 col-sm-4">
+        <a href="/CoursePlayer/?id=7">
+            <div class="course-module-thumb">
+                <img class="img-responsive" src="~/Content/Modules/Course1/modul7.jpg" />
+                <div class="img-caption-overlay">Opplæring teknisk utstyr</div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-3 col-sm-4">
+        <a href="/CoursePlayer/?id=8">
+            <div class="course-module-thumb">
+                <img class="img-responsive" src="~/Content/Modules/Course1/modul8.jpg" />
+                <div class="img-caption-overlay">Varme arbeider</div>
+            </div>
+        </a>
+    </div>
+
+    <div class="clearfix visible-lg visible-md"></div>
+
+    <div class="col-md-3 col-sm-4">
+        <a href="/CoursePlayer/?id=9">
+            <div class="course-module-thumb">
+                <img class="img-responsive" src="~/Content/Modules/Course1/modul9.jpg" />
+                <div class="img-caption-overlay">Provisorisk utstyr</div>
+            </div>
+        </a>
+    </div>
+
+    <div class="clearfix visible-sm"></div>
+
+    <div class="col-md-3 col-sm-4">
+        <a href="/CoursePlayer/?id=10">
+            <div class="course-module-thumb">
+                <img class="img-responsive" src="~/Content/Modules/Course1/modul10.jpg" />
+                <div class="img-caption-overlay">Helse og miljøfarlige stoffer</div>
+            </div>
+        </a>
+    </div>
+    
+    <div class="clearfix visible-sm"></div>
+
+    <div class="col-md-3 col-sm-4">
+        <a href="/CoursePlayer/?id=11">
+            <div class="course-module-thumb">
+                <img class="img-responsive" src="~/Content/Modules/Course1/modul11.jpg" />
+                <div class="img-caption-overlay">Hygiene og renhold</div>
+            </div>
+        </a>
+    </div>
+    
+    <div class="clearfix visible-sm"></div>
+
+    <div class="col-md-3 col-sm-4">
+        <a href="/CoursePlayer/?id=12">
+            <div class="course-module-thumb">
+                <img class="img-responsive" src="~/Content/Modules/Course1/modul12.jpg" />
+
+                <div class="img-caption-overlay">Avfallshåndtering</div>
+            </div>
+        </a>
+    </div>
+    
+    <div class="clearfix visible-sm"></div>
+
+    <div class="col-md-3 col-sm-4">
+        <a href="/CoursePlayer/?id=13">
+            <div class="course-module-thumb">
+                <img class="img-responsive" src="~/Content/Modules/Course1/modul13.jpg" />
+                <div class="img-caption-overlay">Ergonomi</div>
+            </div>
+        </a>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        $(document).ready(function() {
+                var froogaloop;
+                var isNotLoad = true;   
+                $('#videoModal').on('show.bs.modal', function(e) {
+                    var player = $f($("#vimeoplayer")[0]);
+                    player.addEvent('ready', ready);
+                    setTimeout(function() {
+                        if (isNotLoad) {
+                            ready('vimeoplayer');
+                        }
+                    }, 100);
+                });
+
+                $('#videoModal').on('hide.bs.modal', function(e) {
+                    if (froogaloop != undefined) froogaloop.api('unload');
+                    isNotLoad = true;
+                });
+
+                function ready(player_id) {
+                    froogaloop = $f(player_id);
+            
+                    if (froogaloop != undefined) {
+                        isNotLoad = false;
+                        froogaloop.addEvent('play', function() {
+                            console.log('play');
+                        });
+                        froogaloop.addEvent('finish', function() {
+                            console.log('finish');
+                            $('#videoModal').modal('hide');
+                            location.href = $('a.btn-start-course').attr('href');
+                        });
+
+                        froogaloop.api('play');
+                    } else {
+                        setTimeout(ready(player_id), 100);
+                    }
+                }
+    });
+    </script>
+}

@@ -1,0 +1,202 @@
+﻿@model Portal.Web.Models.ProfileModel
+
+@{
+    ViewBag.Title = "CreateUser";
+    ViewBag.Subtitle = "Brukerliste";
+    ViewBag.Icon = "en-users";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+<link href="~/Content/kendo/2013.1.514/kendo.common.min.css" rel="stylesheet" />
+<link href="~/Content/kendo/2013.1.514/kendo.bootstrap.min.css" rel="stylesheet" />
+<script src="~/Scripts/kendo/2013.1.514/jquery.min.js"></script>
+<script src="~/Scripts/kendo/2013.1.514/kendo.web.min.js"></script>
+<script src="/Scripts/kendo/2013.1.514/kendo.aspnetmvc.min.js"></script>
+<script src="~/Scripts/kendo/2013.1.514/cultures/kendo.culture.nb-NO.min.js"></script>
+<script src="/Scripts/kendo/2013.1.514/kendo.nb-NO.js"></script>
+
+<style>
+    .center_div {
+        margin: 0 auto;
+        /*     width: 20%; */ /* value of your choice which suits your alignment */
+    }
+
+</style>
+
+<style type="text/css">
+    body {
+        font-family: Verdana, Arial, sans-serif;
+        font-size: 12px;
+    }
+
+    #placeholder {
+        width: 375px;
+        height: 225px;
+    }
+
+    .legend table, .legend > div {
+        height: 82px !important;
+        opacity: 1 !important;
+        left: 270px;
+        top: 10px;
+        width: 116px !important;
+    }
+
+    .legend table {
+        padding: 5px;
+    }
+
+    .selected-value {
+        float: left;
+        width: 16px;
+        margin: 0 4px;
+     
+    }
+
+    .k-state-focus {
+        background-color: #ea7235;
+    }
+    .k-state-selected.k-state-focused {
+        background-color: #ea7235;
+    }
+
+
+    .k-item.k-state-hover,
+    .k-item.k-state-hover:hover {
+        color: black;
+        background: #ddd;
+    }
+    .k-dropdown-wrap.k-state-hover{
+
+        background-color: #EDEEF0 !important;
+        background-image: none;
+        background-position: none;
+        border-color:#EDEEF0;
+    }
+
+    /*.k-state-hover {
+        background: #ff0000;
+    }*/
+    /*
+    .k-state-selected .k-state-focused .k-h {
+        background-color: #6F9300;
+        
+    }*/
+
+  
+
+    /*.k-dropdown .k-state-default {
+        
+        background-color: red;
+        background-image: none;
+    }*/
+</style>
+
+<br/>
+<div class="container center_div">
+    <h3>Brukerregistrering</h3>
+
+    <form class="form-horizontal" role="form" action="/Superadmin/CreateUser" method="POST">
+        <div class="form-group">
+            <label for="Username" class="col-sm-2 control-label">Brukernavn</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="Username"
+                       placeholder="" value="@Model.Username" name="Username">
+                @Html.ValidationMessage("Username")
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Email" class="col-sm-2 control-label">Epost</label>
+            <div class="col-sm-10">
+                <input type="email" class="form-control" id="Email"
+                       placeholder="" value="@Model.Email" name="Email">
+                @Html.ValidationMessage("Email")
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Firstname" class="col-sm-2 control-label">Fornavn</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="Firstname"
+                       placeholder="" name="Firstname" value="@Model.Firstname">
+                @Html.ValidationMessage("Firstname")
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Lastname" class="col-sm-2 control-label">Etternavn</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="Lastname"
+                       placeholder="" name="Lastname" value="@Model.Lastname">
+                @Html.ValidationMessage("Lastname")
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="Department" class="col-sm-2 control-label">Firma</label>
+            <div class="col-sm-10">
+                @(Html.Kendo().DropDownListFor(model => model.CompanyId).BindTo(ViewBag.companies as SelectList))
+
+
+                @Html.ValidationMessage("Department")
+            </div>
+        </div>
+
+        @*<div class="form-group">
+                <label for="Department" class="col-sm-2 control-label">Avdeling</label>
+                <div class="col-sm-10">
+                    @(Html.Kendo().DropDownListFor(model => model.DepartmentId).BindTo(ViewBag.departments as SelectList))
+
+
+                    @Html.ValidationMessage("Department")
+                </div>
+            </div>*@
+
+        @*<div class="form-group">
+                <label for="Department">Avdeling</label>
+                <input type="text" class="form-control" id="Department" placeholder="" value="@Model.Department" readonly="" name="Department">
+            </div>*@
+
+        <div class="form-group">
+            <label for="Phone" class="col-sm-2 control-label">Telefon</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="Phone"
+                       placeholder="" name="Phone" value="@Model.Phone">
+                @Html.ValidationMessage("Phone")
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="Password1" class="col-sm-2 control-label">Passord</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="Password1"
+                       placeholder="" name="Password1" value="">
+                @Html.ValidationMessage("Password1")
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="Password2" class="col-sm-2 control-label">Gjenta passord</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="Password2"
+                       placeholder="" name="Password2" value="">
+                @Html.ValidationMessage("Password2")
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(m => m.IsAdministrator) Administrator?
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">Lagre</button>
+            </div>
+        </div>
+    </form>
+</div>

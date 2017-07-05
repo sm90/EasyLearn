@@ -1,0 +1,167 @@
+﻿@using Portal.Web.Models
+@model List<Portal.Web.Models.AdminUsersModel>
+
+@{
+    ViewBag.Title = "Brukerliste";
+    ViewBag.Subtitle = "Brukerliste";
+    ViewBag.Icon = "en-users";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+<link href="~/Content/kendo/2013.1.514/kendo.common.min.css" rel="stylesheet" />
+<link href="~/Content/kendo/2013.1.514/kendo.bootstrap.min.css" rel="stylesheet" />
+<script src="~/Scripts/kendo/2013.1.514/jquery.min.js"></script>
+<script src="~/Scripts/kendo/2013.1.514/kendo.web.min.js"></script>
+<script src="/Scripts/kendo/2013.1.514/kendo.aspnetmvc.min.js"></script>
+<script src="~/Scripts/kendo/2013.1.514/cultures/kendo.culture.nb-NO.min.js"></script>
+<script src="/Scripts/kendo/2013.1.514/kendo.nb-NO.js"></script>
+<script>
+    kendo.culture("nb-NO");
+</script>
+<br/>
+
+<style type="text/css">
+    body {
+        font-family: Verdana, Arial, sans-serif;
+        font-size: 12px;
+    }
+
+    #placeholder {
+        width: 375px;
+        height: 225px;
+    }
+
+    .legend table, .legend > div {
+        height: 82px !important;
+        opacity: 1 !important;
+        left: 270px;
+        top: 10px;
+        width: 116px !important;
+    }
+
+    .legend table {
+        padding: 5px;
+    }
+
+    .k-state-selected {
+        background-color: #da6225;
+    }
+
+</style>
+
+
+
+<script type="text/javascript">
+    function invite(name) {
+
+        $.ajax({
+            url: '/admin/InviteUser/',
+            type: "POST",
+            data: { 'name': name },
+            success: function () {
+                window.location = window.location;
+            }
+        });
+    }
+    $(document).ready(function () {
+        //change event
+        $("#srch-term").keyup(function () {
+
+            var val = $('#srch-term').val();
+
+            $("#grid").data("kendoGrid").dataSource.filter({
+                logic: "or",
+                filters: [
+                    {
+                        field: "Name",
+                        operator: "contains",
+                        value: val
+                    },
+                    //{
+                    //    field: "Status",
+                    //    operator: "contains",
+                    //    value: val
+                    //},
+                    //{
+                    //    field: "Category",
+                    //    operator: "contains",
+                    //    value: val
+                    //},
+                    //{
+                    //    field: "AreaOfStudy",
+                    //    operator: "contains",
+                    //    value: val
+                    //},
+                ]
+            });
+
+
+        });
+    });
+
+</script>
+<style>
+    .noDecoration, a:link, a:visited {
+        text-decoration: none;
+    }
+
+
+</style>
+
+<div class="container">
+    
+
+    <div class="container">
+        @(Html.Kendo().Grid<AdminUsersModel>()
+        .Name("grid")
+                        .Columns(columns =>
+                        {
+                            columns.Bound(p => p.Name).Filterable(true).Title("Ansatte").Sortable(true).ClientTemplate(
+ "<a class='noDecoration' href='/Admin/User" + "/#= AspNetUserId #'" + ">#= Name #</a>"
+);
+                            columns.Bound(p => p.Department).Filterable(true).Sortable(true).Title("Avdeling");
+                            columns.Bound(p => p.Course1).Filterable(false).Title("HMS for bygg og anlegg").ClientTemplate("<input readonly='readonly' type='checkbox' #= Course1 ? checked='checked': '' # class='chkbx' />");
+                            columns.Bound(p => p.Name).Filterable(false).Title("Re-send invite").Sortable(true).ClientTemplate(
+                                    "<a class='reInvite' onclick=\"invite(\'#= Username #\')\" data-name=\"\" ><i style=\"text-align: center; width: 100%;\" class=\"fa fa-reply\"></i></a>").Width(110);
+                        //    columns.Bound(p => p.Course2).Filterable(false).Title("Lederkurs").ClientTemplate("<input type='checkbox' #= Course2 ? checked='checked': '' # class='chkbx' />");
+                        //    columns.Bound(p => p.Course3).Filterable(false).Title("Datakurs").ClientTemplate("<input type='checkbox' #= Course3 ? checked='checked': '' # class='chkbx' />");
+                        })
+        
+        .Pageable()
+        .ToolBar(toolbar =>
+    {
+        toolbar.Template(@<text>
+            <div class="toolbar">
+                <form action="/Admin/CreateUser" method="GET" style="display: inline">
+                    <input type="submit" value="Ny bruker" class="btn" />
+                </form>
+                @*<form action="#" method="POST" style="display: inline">
+                    <input type="submit" value="Nye brukere" class="btn" />
+                </form>*@
+                
+                <form action="/admin/Departments" method="POST" style="display: inline">
+                    <input type="submit" value="Avdelinger" class="btn" />
+                </form>
+
+                <div class="input-group" style="float: right;display: inline">
+                    <input type="text" class="form-control" placeholder="Brukersøk" name="srch-term" id="srch-term"  style="display: inline">
+                   
+                </div>
+              
+            </div>
+        </text>);
+    })
+                    .Sortable()
+                    .Scrollable()
+                    .Filterable()
+                            .HtmlAttributes(new { style = "height:750px;" })
+                .DataSource(dataSource => dataSource
+                     .Ajax().PageSize(20)
+                                     .Read(read => read.Action("_ajax_ReturnUsers", "Admin"))
+                 )
+        )
+
+    </div>
+
+    </div>

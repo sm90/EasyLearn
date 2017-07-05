@@ -1,0 +1,59 @@
+﻿@using Portal.Web.Models
+
+@{
+    ViewBag.Title = "Courses";
+    Layout = "~/Views/Shared/_GranatLayout.cshtml";
+}
+
+<link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+<link href="~/Content/kendo/2013.1.514/kendo.common.min.css" rel="stylesheet" />
+<link href="~/Content/kendo/2013.1.514/kendo.bootstrap.min.css" rel="stylesheet" />
+<script src="~/Scripts/kendo/2013.1.514/jquery.min.js"></script>
+<script src="~/Scripts/kendo/2013.1.514/kendo.web.min.js"></script>
+<script src="/Scripts/kendo/2013.1.514/kendo.aspnetmvc.min.js"></script>
+<script src="~/Scripts/kendo/2013.1.514/cultures/kendo.culture.nb-NO.min.js"></script>
+<script src="/Scripts/kendo/2013.1.514/kendo.nb-NO.js"></script>
+<script>
+    kendo.culture("nb-NO");
+</script>
+<br />
+
+<h2>Kursadministrasjon</h2>
+
+<div class="container">
+
+
+    <div class="container">
+        @(Html.Kendo().Grid<Course>()
+        .Name("grid")
+                        .Columns(columns =>
+                        {
+                            columns.Bound(p => p.CourseId).Filterable(true).Sortable(true).Title("KursId").Width(100);
+                            columns.Bound(p => p.Name).Filterable(true).Sortable(true).Title("Navn");
+                        })
+
+        .Pageable()
+        .ToolBar(toolbar =>
+    {
+        toolbar.Template(@<text>
+            <div class="toolbar">
+                <form action="/Granat/NewCourse" method="GET" style="display: inline">
+                    <input type="submit" value="Nytt kurs" class="btn" />
+                </form>
+        
+            </div>
+        </text>);
+    })
+                            .Sortable()
+                            .Scrollable()
+                            .Filterable()
+                                    .HtmlAttributes(new { style = "height:450px;" })
+                        .DataSource(dataSource => dataSource
+                             .Ajax().PageSize(20)
+                                             .Read(read => read.Action("_ajax_ReturnCourses", "Granat"))
+                         )
+        )
+
+    </div>
+
+</div>

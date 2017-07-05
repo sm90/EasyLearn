@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Testmodel>
+@using Kendo.Mvc.UI
+@using Portal.Web.Models
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_CourseLayout.cshtml";
+}
+
+<link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+<link href="~/Content/kendo/2013.1.514/kendo.common.min.css" rel="stylesheet" />
+<link href="~/Content/kendo/2013.1.514/kendo.bootstrap.min.css" rel="stylesheet" />
+<script src="~/Scripts/kendo/2013.3.1119/jquery.min.js"></script>
+<script src="~/Scripts/kendo/2013.3.1119/kendo.web.min.js"></script>
+
+
+http://docs.telerik.com/kendo-ui/getting-started/using-kendo-with/using-kendo-with-twitter-bootstrap <br />
+<div class="row">
+    <div class="col-md-6">
+        <h2>Testside</h2>
+    </div>
+    <div class="col-md-3">
+        <h2>Testside</h2>
+    </div>
+    <div class="col-md-3">
+        <h2>Testside</h2>
+    </div>
+</div>
+
+<div class="container">
+    @(Html.Kendo().Grid(Model)
+        .Name("grid")
+                        .Columns(columns =>
+                        {
+                            columns.Bound(p => p.Column1).Filterable(true).Title("test").Sortable(true);
+                            columns.Bound(p => p.Column2).Filterable(true);
+                            columns.Bound(p => p.Column3).Filterable(true);
+                            columns.Bound(p => p.Column4).Filterable(true);
+                        })
+        //.Pageable()
+        //.Sortable()
+        //.Scrollable()
+        //.Filterable()
+      //  .AutoBind(true)
+               //.DataSource(dataSource => dataSource
+               //     .Ajax()
+               //             .Read(read => read.Action("_ajax_GetTestdata", "Test"))
+               // )
+    )
+</div>
